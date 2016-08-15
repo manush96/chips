@@ -53,6 +53,7 @@ public static List<queryin> queryintrans(querydto q3)
 public static DBMaster DBtrans(DBMasterDto dto)
 {
 	DBMaster d=new DBMaster();
+	d.setId(dto.getId());
 	d.setName(dto.getName());
 	d.setDescription(dto.getDescription());
 	d.setUsername(dto.getUsername());

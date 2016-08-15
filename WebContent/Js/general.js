@@ -132,40 +132,40 @@ $(document).ready(function()
 		
 	});
 	$(document).on("click",".remove_db_row",function()
+	{
+		id = $(this).attr('rel');
+		$.confirm
+		({
+			title: 'Are you sure?',
+			content: "You won't be able to revert this action!" ,
+			confirmButton: 'Delete',
+			confirmButtonClass: 'btn-danger',
+			cancelButton: 'Cancel',
+    		cancelButtonClass: 'btn-info',
+    		closeIcon: true,
+    		closeIconClass: 'glyphicon glyphicon-remove',
+    		theme: 'material',
+    		backgroundDismiss: true,
+			confirm: function()
 			{
-				id = $(this).attr('rel');
-				$.confirm
+				$.ajax
 				({
-					title: 'Are you sure?',
-					content: "You won't be able to revert this action!" ,
-					confirmButton: 'Delete',
-					confirmButtonClass: 'btn-danger',
-					cancelButton: 'Cancel',
-		    		cancelButtonClass: 'btn-info',
-		    		closeIcon: true,
-		    		closeIconClass: 'glyphicon glyphicon-remove',
-		    		theme: 'material',
-		    		backgroundDismiss: true,
-					confirm: function()
+					type: "POST",
+					url: "SingleDeleteDb.html",
+					data: { id: id },
+					success: function(response)
 					{
-						$.ajax
-						({
-							type: "POST",
-							url: "SingleDeleteDb.html",
-							data: { id: id },
-							success: function(response)
-							{
-								$("#dashboard_link").trigger("click");
-							}
-						});
-					},
-					cancel: function()
-					{
-					    
+						$("#dashboard_link").trigger("click");
 					}
 				});
-				
-			});
+			},
+			cancel: function()
+			{
+			    
+			}
+		});
+		
+	});
 	$(document).on("click","#add_parameters", function()
 	{
 		$("#add_append_div").html('');
@@ -181,49 +181,49 @@ $(document).ready(function()
 	});
 
 	$(document).on("click",".edit_db_row",function()
-			{
-				//max pool minpool  password url
-		
-				id = $(this).attr('rel');
-				name = $('div[data-id="'+id+'"]').find(".name_text").text();
-				username = $('div[data-id="'+id+'"]').find(".username_text").text();
-				desc = $('div[data-id="'+id+'"]').find(".description_text").text();
-				password = $('div[data-id="'+id+'"]').find(".password_text").text();
-				url = $('div[data-id="'+id+'"]').find(".url_text").text();
-				maxpool = $('div[data-id="'+id+'"]').find(".max_pool_size_text").text();
-				minpool = $('div[data-id="'+id+'"]').find(".min_pool_size_text").text();
-				//----		
-				//no_of_var = $('div[data-id="'+id+'"]').find(".no_of_var_text").text();
-				//----
-				
-				$("#edit_db_modal").find("#name").val(name);
-				$("#edit_db_modal").find("#username").val(username);
-				$("#edit_db_modal").find("#password").val(password);
-				$("#edit_db_modal").find("#url").val(url);
-				$("#edit_db_modal").find("#description").val(desc);
-				$("#edit_db_modal").find("#min_pool_size").val(minpool);
-				$("#edit_db_modal").find("#max_pool_size").val(maxpool);
-				
-			});		
-
-	$(document).on("click","#goto_2",function()
 	{
-		$(".report_div").hide();
-		query = $("#rep_query").val();
-		name = $("#report_name").val();
-		db_id = $("#rep_db").val();
-		$.ajax
-		({
-			type: "GET",
-			url: "get_page_2.html",
-			data: { query: query, db_id:db_id, name:name  },
-			success: function(response)
+		//max pool minpool  password url
+
+		id = $(this).attr('rel');
+		username = $('div[data-id="'+id+'"]').find(".username_text").text();
+		password = $('div[data-id="'+id+'"]').find(".password_text").text();
+		name = $('div[data-id="'+id+'"]').find(".name_text").text();
+		url = $('div[data-id="'+id+'"]').find(".url_text").text();
+		desc = $('div[data-id="'+id+'"]').find(".description_text").text();
+		maxpool = $('div[data-id="'+id+'"]').find(".max_pool_size_text").text();
+		minpool = $('div[data-id="'+id+'"]').find(".min_pool_size_text").text();
+		
+		//----		
+		//no_of_var = $('div[data-id="'+id+'"]').find(".no_of_var_text").text();
+		//----
+		$("#edit_db_modal").find("#id").val(id);
+		$("#edit_db_modal").find("#username").val(username);
+		$("#edit_db_modal").find("#password").val(password);
+		$("#edit_db_modal").find("#name").val(name);
+		$("#edit_db_modal").find("#url").val(url);
+		$("#edit_db_modal").find("#description").val(desc);
+		$("#edit_db_modal").find("#min_pool_size").val(minpool);
+		$("#edit_db_modal").find("#max_pool_size").val(maxpool);
+		
+	});		
+	$(document).on("click","#goto_2",function()
 			{
-				$("#report_div_2").html(response);
-			}
-		});
-		$("#report_div_2").show();
-	});	
+				$(".report_div").hide();
+				query = $("#rep_query").val();
+				name = $("#report_name").val();
+				db_id = $("#rep_db").val();
+				$.ajax
+				({
+					type: "GET",
+					url: "get_page_2.html",
+					data: { query: query, db_id:db_id, name:name  },
+					success: function(response)
+					{
+						$("#report_div_2").html(response);
+					}
+				});
+				$("#report_div_2").show();
+			});	
 	$(document).on("click","#delete_selected",function()
 	{
 		ids = "";
@@ -310,4 +310,3 @@ $(document).ready(function()
 				});
 			});
 });
-
