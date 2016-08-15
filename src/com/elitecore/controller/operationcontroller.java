@@ -67,8 +67,11 @@ public ModelAndView hello()
 
 }
 	@RequestMapping(value="/get_page_2.html")
-	public ModelAndView hello5(@RequestParam("query") String temp, @RequestParam("name") String name, @RequestParam("query_id") int query_id, @RequestParam("db_id") int db_id)
-	{	String disp_name[]=temp.
+	public ModelAndView hello5(@RequestParam("query") String temp, @RequestParam("name") String name,@RequestParam("db_id") int db_id)
+	{	
+		String[] output = temp.split("^");
+		int query_id=Integer.parseInt(output[0]);
+		String disp_name=output[1];
 		Reportdto r1=new Reportdto();
 		r1.setReport_name(name);
 		r1.setQuery_id(query_id);
