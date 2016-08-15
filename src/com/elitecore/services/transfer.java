@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.elitecore.dto.DBMasterDto;
+import com.elitecore.dto.Reportdto;
 import com.elitecore.dto.querydto;
 import com.elitecore.dto.userdto;
 import com.elitecore.model.DBMaster;
 import com.elitecore.model.Query;
+import com.elitecore.model.Report;
 import com.elitecore.model.User;
 import com.elitecore.model.queryin;
 
@@ -61,5 +63,17 @@ public static DBMaster DBtrans(DBMasterDto dto)
 	d.setMin_pool_size(dto.getMin_pool_size());
 	d.setMax_pool_size(dto.getMax_pool_size());
 	return d;
+}
+
+public static Report Report_trans(Reportdto rd)
+{
+	Report r=new Report();
+	r.setDb_id(rd.getDb_id());
+	r.setDisplay_name(rd.getDisplay_name());
+	r.setQuery_id(rd.getQuery_id());
+	r.setId(rd.getId());
+	r.setReport_name(rd.getReport_name());
+	return r;
+	
 }
 }

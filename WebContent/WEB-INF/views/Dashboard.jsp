@@ -48,12 +48,7 @@
                 <li>
                     <a class="ajax_load" ref="viewquery.html?page=1" id="dashboard_link"><span class="glyphicon glyphicon-share"></span> Dashboard</a>
                 </li>
-                <li>
-       				<a ref="keyword.html" class="ajax_load" ><span class="glyphicon glyphicon-ok"></span> Search Keyword</a>
-                </li>
-                <li>
-                    <a class="ajax_load" ref="hello.html"><span class="glyphicon glyphicon-ok"></span> About</a>
-                </li>
+                
                 <li>
                     <a class="ajax_load" ref="viewdb.html?page=1"><span class="glyphicon glyphicon-ok"></span> DB Master</a>
                 </li>
@@ -61,7 +56,7 @@
                     <a class="ajax_load" ref="reportconfig.html"><span class="glyphicon glyphicon-ok"></span> Report</a>
                 </li>
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-ok"></span> Services</a>
+                    <a ref="viewreport.html?page=1" class="ajax_load"><span class="glyphicon glyphicon-ok"></span> Report Grid</a>
                 </li>
                 <li>
                     <a href="#"><span class="glyphicon glyphicon-ok"></span> Contact</a>
