@@ -67,8 +67,9 @@ public ModelAndView hello()
 
 }
 	@RequestMapping(value="/get_page_2.html")
-	public ModelAndView hello5(@RequestParam("query") String temp, @RequestParam("name") String name,@RequestParam("db_id") int db_id)
+	public ModelAndView hello5(@RequestParam("query") String temp, @RequestParam("name") String name,@RequestParam("db_id") String db_id1)
 	{	
+		int db_id= Integer.parseInt(db_id1);
 		String[] output = temp.split("^");
 		int query_id=Integer.parseInt(output[0]);
 		String disp_name=output[1];
@@ -83,7 +84,7 @@ public ModelAndView hello()
 		String df=disp_name.substring(7,a-1);
 		System.out.println(df);
 		ModelAndView model=new ModelAndView();
-		model.addObject("Reportdto",r1);
+		model.addObject("Reportdto",new Reportdto());
 		model.addObject("list",df);
 		model.setViewName("report_conf2");
 		return model;	

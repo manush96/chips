@@ -58,7 +58,7 @@
                     <a class="ajax_load" ref="viewdb.html?page=1"><span class="glyphicon glyphicon-ok"></span> DB Master</a>
                 </li>
                 <li>
-                    <a class="ajax_load" ref="reportconfig.html"><span class="glyphicon glyphicon-ok"></span> Contact</a>
+                    <a class="ajax_load" ref="reportconfig.html"><span class="glyphicon glyphicon-ok"></span> Report</a>
                 </li>
                 <li>
                     <a href="#"><span class="glyphicon glyphicon-ok"></span> Services</a>

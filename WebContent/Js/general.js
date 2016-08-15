@@ -210,11 +210,13 @@ $(document).ready(function()
 	{
 		$(".report_div").hide();
 		query = $("#rep_query").val();
+		name = $("#report_name").val();
+		db_id = $("#rep_db").val();
 		$.ajax
 		({
 			type: "GET",
 			url: "get_page_2.html",
-			data: { query: query, db_id  },
+			data: { query: query, db_id:db_id, name:name  },
 			success: function(response)
 			{
 				$("#report_div_2").html(response);
