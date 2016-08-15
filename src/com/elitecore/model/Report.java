@@ -5,9 +5,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "Report")
@@ -19,8 +24,9 @@ public class Report {
 	private String report_name;
 	@Column(name = "display_name")
 	private String display_name;
-	@Column(name = "query_id")
-	private int query_id;
+	@OneToMany
+	@JoinColumn(name="query_id")
+	private Query query;
 	@Column(name = "db_id")
 	private int db_id;
 

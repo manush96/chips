@@ -60,10 +60,10 @@
 	       			<div class="col-sm-2 lr0pad">
 	       				<span class="name_text">${report.report_name}</span>
 	       			</div>
-	       			<div class="col-sm-2 lr0pad">
+	       			<div class="col-sm-1 lr0pad">
 	       				<span class="query_text">${report.query_id}</span>
 	       			</div>
-	       			<div class="col-sm-2 lr0pad" style="padding-right: 8px">
+	       			<div class="col-sm-1 lr0pad" style="padding-right: 8px">
 	       				<span class="description_text">${report.db_id}</span>
 	       			</div>
 	       			<div class="col-sm-3 lr0pad" style="padding-right: 8px">
