@@ -67,7 +67,7 @@
 	       			
 	       			<div class="col-sm-2 lr0pad">
 	        			<div class="col-sm-6 lr0pad">
-	        				<button class="btn btn-primary edit_query_row" title="Edit" data-toggle="modal" data-target="#edit_db_modal" rel="${query.id}">
+	        				<button class="btn btn-primary edit_db_row" title="Edit" data-toggle="modal" data-target="#edit_db_modal" rel="${query.id}">
 	        					<span class="glyphicon glyphicon-pencil"></span>
 	        				</button>
 	        				<button class="btn btn-danger remove_db_row" title="Delete" rel="${db.id}">
@@ -158,6 +158,78 @@
 					            <div class="input-group col-sm-11">
 					                <span class = "input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 					                <form:input path="description" type="text" class="form-control input-lg tip_danger_lg" id="description" placeholder="Description"/>
+					            </div>
+					        </div>
+				            <div class="form-group">        
+				                <div class="">
+				                    <button type="submit" id="submit" class="btn btn-success submit">
+				                        <span class="glyphicon glyphicon-plus"></span> Add Database
+				                    </button>
+				                </div>
+				            </div>
+				        </form:form>
+					</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		
+		<div id="edit_db_modal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<div id="head" class="col-sm-6 lr0pad">
+	                			<h2><span class="glyphicon glyphicon-list-alt"></span> Edit Database</h2><br/>
+	            			</div>
+						</div>
+						<div class="modal-body" style="padding-left: 60px">
+							<form:form modelAttribute="DBMasterDto" action="adddb.html?page=1" class="form-horizontal" role="form" method="POST">
+					            
+					        <div class="form-group">
+					           <div class="input-group col-sm-11">
+					                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					                <form:input path="username" type="text" id="username" class="form-control input-lg tip_danger_lg" placeholder="Username"/>
+					            </div>
+					        </div>
+					        <div class="form-group">
+					           <div class="input-group col-sm-11">
+					                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+					                <form:input path="password" type="text" id="password" class="form-control input-lg tip_danger_lg" placeholder="Password"/>
+					            </div>
+					        </div>
+					        <div class="form-group">
+						            <div class="input-group col-sm-11">
+						                <span class = "input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						                <form:input path="name" type="text" id="name" class="form-control input-lg tip_danger_lg" id="name" placeholder="Database name"/>
+						            </div>
+						        </div>
+						<div class="form-group">
+					           <div class="input-group col-sm-11">
+					                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+					                <form:input path="url" type="text" id="url" class="form-control input-lg tip_danger_lg" placeholder="Database URL"/>
+					            </div>
+					        </div>
+					        
+						<div class="form-group">
+					           <div class="input-group col-sm-11">
+					                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+					                <form:input path="min_pool_size" type="number" id="min_pool_size" class="form-control input-lg tip_danger_lg" placeholder="Minimum pool size"/>
+					            </div>
+					        </div>					
+						<div class="form-group">
+					           <div class="input-group col-sm-11">
+					                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+					                <form:input path="max_pool_size" type="number" id="max_pool_size" class="form-control input-lg tip_danger_lg" placeholder="Maximum pool size"/>
+					            </div>
+					        </div>
+						
+					        <div class="form-group">
+					            <div class="input-group col-sm-11">
+					                <span class = "input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+					                <form:input path="description" type="text" id="description" class="form-control input-lg tip_danger_lg" id="description" placeholder="Description"/>
 					            </div>
 					        </div>
 				            <div class="form-group">        
