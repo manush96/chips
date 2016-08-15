@@ -72,12 +72,13 @@ public class querydao {
 	}
 
 	public List<Query> getbyname() {
-		String sql = "select id,name from query";
+		String sql = "select id,name,query from query";
 		return template.query(sql, new RowMapper<Query>() {
 			public Query mapRow(ResultSet rs, int row) throws SQLException {
 				Query e = new Query();
 				e.setId(rs.getInt("id"));
 				e.setName(rs.getString("name"));
+				e.setQuery(rs.getString("query"));
 				return e;
 			}
 		});
