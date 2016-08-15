@@ -30,7 +30,7 @@
 			<img src="img/logo.png" style="height: 80px; width: 80px"/>
 		</div>
 		<div class="col-sm-11">
-			<h1 class="text-center">Hey dawgggg!</h1>
+			<h1 class="text-center">Hey catttt!</h1>
 			
 			<h2>Welcome ${key}</h2>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.html">Logout</a>
