@@ -33,7 +33,7 @@ public class DBMasterDao {
 		}
 		
 		public int editDB(DBMaster dbm) {			
-			String sql="UPDATE `db_master` SET `description`='"+dbm.getDescription()+"',`url`='"+dbm.getUrl()+"',`username`='"+dbm.getUsername()+"',`password`='"+dbm.getPassword()+"',`min_pool_size`='"+dbm.getMin_pool_size()+"'`max_pool_size`='"+dbm.getMax_pool_size()+"' where `id`= '"+dbm.getId()+"'";	
+			String sql="UPDATE `db_master` SET `name`='"+dbm.getName()+"', `description`='"+dbm.getDescription()+"',`url`='"+dbm.getUrl()+"',`username`='"+dbm.getUsername()+"',`password`='"+dbm.getPassword()+"',`min_pool_size`='"+dbm.getMin_pool_size()+"', `max_pool_size`='"+dbm.getMax_pool_size()+"' where `id`= '"+dbm.getId()+"'";	
 			return template.update(sql);
 		
 		}
@@ -59,6 +59,7 @@ public class DBMasterDao {
 					public DBMaster mapRow(ResultSet rs, int row) throws SQLException {
 					DBMaster e=new DBMaster();
 					e.setId(rs.getInt("id"));
+					e.setName(rs.getString("name"));
 					e.setDescription(rs.getString("description"));
 					e.setUrl(rs.getString("url"));
 					e.setUsername(rs.getString("username"));
