@@ -66,7 +66,25 @@ public ModelAndView hello()
 		}
 
 }
-	
+	@RequestMapping(value="/get_page_2.html")
+	public ModelAndView hello5(@RequestParam("query") String temp, @RequestParam("name") String name, @RequestParam("query_id") int query_id, @RequestParam("db_id") int db_id)
+	{	String disp_name[]=temp.
+		Reportdto r1=new Reportdto();
+		r1.setReport_name(name);
+		r1.setQuery_id(query_id);
+		r1.setDb_id(db_id);
+		System.out.println("be yar");
+		System.out.println(disp_name);
+		int a=disp_name.indexOf("from");
+		System.out.println(a);
+		String df=disp_name.substring(7,a-1);
+		System.out.println(df);
+		ModelAndView model=new ModelAndView();
+		model.addObject("Reportdto",r1);
+		model.addObject("list",df);
+		model.setViewName("report_conf2");
+		return model;	
+	}	
 	@RequestMapping(value="/success_reg.html", method = RequestMethod.GET)
 	public ModelAndView save1(@ModelAttribute userdto  userdto)
 	{

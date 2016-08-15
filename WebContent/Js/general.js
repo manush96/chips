@@ -205,7 +205,23 @@ $(document).ready(function()
 				$("#edit_db_modal").find("#max_pool_size").val(maxpool);
 				
 			});		
-	
+
+	$(document).on("click","#goto_2",function()
+	{
+		$(".report_div").hide();
+		query = $("#rep_query").val();
+		$.ajax
+		({
+			type: "GET",
+			url: "get_page_2.html",
+			data: { query: query, db_id  },
+			success: function(response)
+			{
+				$("#report_div_2").html(response);
+			}
+		});
+		$("#report_div_2").show();
+	});	
 	$(document).on("click","#delete_selected",function()
 	{
 		ids = "";
@@ -292,3 +308,4 @@ $(document).ready(function()
 				});
 			});
 });
+

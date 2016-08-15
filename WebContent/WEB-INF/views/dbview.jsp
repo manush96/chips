@@ -98,7 +98,7 @@
       		</div>
       		<div class="col-sm-12 lr0pad">
       			<button class="btn btn-danger" title="Delete Selected" id="delete_selected_db">
-  					<span class="glyphicon glyphicon-trash"></span>
+		<span class="glyphicon glyphicon-trash"></span>
   					 Delete Selected
   				</button>
    			<button class="btn btn-success" title="Add" data-toggle="modal" data-target="#add_db_modal">

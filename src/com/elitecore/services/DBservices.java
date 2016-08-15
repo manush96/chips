@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.elitecore.dao.DBMasterDao;
 import com.elitecore.model.DBMaster;
+import com.elitecore.model.Query;
 @Service("DBservices")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 
@@ -32,7 +33,10 @@ public class DBservices {
 		return dao.getDBByPage(pageid, total);
 		//System.out.println("after invoking daofunction");
 	}
-		
+	public List<Query> dbname()
+	{
+		return dao.getDbByname();
+	}	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void UpdateDB(DBMaster dbm) {
 		int result= dao.editDB(dbm);

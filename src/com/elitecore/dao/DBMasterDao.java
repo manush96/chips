@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.elitecore.model.DBMaster;
+import com.elitecore.model.Query;
 
 @Repository("DBMasterdao")
 public class DBMasterDao {
@@ -72,5 +73,17 @@ public class DBMasterDao {
 		public int multidelete(String ids) {
 			String sql = "delete from db_master WHERE id IN (" + ids + ")";
 			return template.update(sql);
+		}
+		public List<Query> getDbByname() {
+			String sql = "select id,name from db_master";
+			return template.query(sql, new RowMapper<Query>() {
+				public Query mapRow(ResultSet rs, int row) throws SQLException {
+					Query e = new Query();
+					e.setId(rs.getInt("id"));
+					e.setName(rs.getString("name"));
+					return e;
+				}
+			});
+
 		}
 }
