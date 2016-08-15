@@ -1,0 +1,59 @@
+package com.elitecore.model;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Report")
+public class Report {
+	@GeneratedValue
+	@Id
+	private int id;
+	@Column(name = "report_name")
+	private String report_name;
+	@Column(name = "display_name")
+	private String display_name;
+	@Column(name = "query_id")
+	private int query_id;
+	@Column(name = "db_id")
+	private int db_id;
+
+	public int getDb_id() {
+		return db_id;
+	}
+
+	public void setDb_id(int db_id) {
+		this.db_id = db_id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getDisplay_name() {
+		return display_name;
+	}
+
+	public void setDisplay_name(String display_name) {
+		this.display_name = display_name;
+	}
+
+	public int getQuery_id() {
+		return query_id;
+	}
+
+	public void setQuery_id(int query_id) {
+		this.query_id = query_id;
+	}
+
+}
