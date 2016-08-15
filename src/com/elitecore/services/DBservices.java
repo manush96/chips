@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.elitecore.dao.DBMasterDao;
-
 import com.elitecore.model.DBMaster;
 @Service("DBservices")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -40,7 +39,7 @@ public class DBservices {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	public void Dltquery(int id) {
+	public void DltDb(int id) {
 
 		int result= dao.dltDB(id);
 		
@@ -52,6 +51,9 @@ public class DBservices {
 		return result;
 	}
 
-	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public void multidelete(String ids) {
+		dao.multidelete(ids);
+	}
 
 }

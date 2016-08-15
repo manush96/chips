@@ -69,4 +69,8 @@ public class DBMasterDao {
 			});
 		}
 
+		public int multidelete(String ids) {
+			String sql = "delete from db_master WHERE id IN (" + ids + ")";
+			return template.update(sql);
+		}
 }

@@ -67,10 +67,10 @@
 	       			
 	       			<div class="col-sm-2 lr0pad">
 	        			<div class="col-sm-6 lr0pad">
-	        				<button class="btn btn-primary edit_query_row" title="Edit" data-toggle="modal" data-target="#edit_query_modal" rel="${query.id}">
+	        				<button class="btn btn-primary edit_query_row" title="Edit" data-toggle="modal" data-target="#edit_db_modal" rel="${query.id}">
 	        					<span class="glyphicon glyphicon-pencil"></span>
 	        				</button>
-	        				<button class="btn btn-danger remove_query_row" title="Delete" rel="${db.id}">
+	        				<button class="btn btn-danger remove_db_row" title="Delete" rel="${db.id}">
 	        					<span class="glyphicon glyphicon-trash"></span>
 	        				</button>
 	        			</div>
@@ -97,7 +97,7 @@
        		</center>
       		</div>
       		<div class="col-sm-12 lr0pad">
-      			<button class="btn btn-danger" title="Delete Selected" id="delete_selected">
+      			<button class="btn btn-danger" title="Delete Selected" id="delete_selected_db">
   					<span class="glyphicon glyphicon-trash"></span>
   					 Delete Selected
   				</button>

@@ -8,8 +8,8 @@ public class DBMasterDto {
 	private String Url;
 	private String username;
 	private String password;
-	private int min_pool_size;
-	private int max_pool_size;
+	private String min_pool_size;
+	private String max_pool_size;
 	public int getId() {
 		return id;
 	}
@@ -46,16 +46,16 @@ public class DBMasterDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getMin_pool_size() {
+	public String getMin_pool_size() {
 		return min_pool_size;
 	}
-	public void setMin_pool_size(int min_pool_size) {
+	public void setMin_pool_size(String min_pool_size) {
 		this.min_pool_size = min_pool_size;
 	}
-	public int getMax_pool_size() {
+	public String getMax_pool_size() {
 		return max_pool_size;
 	}
-	public void setMax_pool_size(int max_pool_size) {
+	public void setMax_pool_size(String max_pool_size) {
 		this.max_pool_size = max_pool_size;
 	}
 	

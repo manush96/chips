@@ -3,8 +3,10 @@ package com.elitecore.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.elitecore.dto.DBMasterDto;
 import com.elitecore.dto.querydto;
 import com.elitecore.dto.userdto;
+import com.elitecore.model.DBMaster;
 import com.elitecore.model.Query;
 import com.elitecore.model.User;
 import com.elitecore.model.queryin;
@@ -48,4 +50,15 @@ public static List<queryin> queryintrans(querydto q3)
 	return q1;
 }
 
+public static DBMaster DBtrans(DBMasterDto dto)
+{
+	DBMaster d=new DBMaster();
+	d.setName(dto.getName());
+	d.setDescription(dto.getDescription());
+	d.setUsername(dto.getUsername());
+	d.setPassword(dto.getPassword());
+	d.setMin_pool_size(dto.getMin_pool_size());
+	d.setMax_pool_size(dto.getMax_pool_size());
+	return d;
+}
 }

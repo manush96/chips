@@ -72,8 +72,8 @@ public class DBMaster {
 	public String getMin_pool_size() {
 		return min_pool_size;
 	}
-	public void setMin_pool_size(String min_pool_size) {
-		this.min_pool_size = min_pool_size;
+	public void setMin_pool_size(String i) {
+		this.min_pool_size = i;
 	}
 	
 	
