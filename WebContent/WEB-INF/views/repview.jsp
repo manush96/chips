@@ -105,7 +105,7 @@
   					<span class="glyphicon glyphicon-trash"></span>
   					 Delete Selected
   				</button>
-   			<button class="btn btn-success" title="Add" data-toggle="modal" data-target="#add_report_modal">
+   			<button class="btn btn-success ajax_load" ref="reportconfig.html" title="Add" data-toggle="modal" data-target="#add_report_modal">
 				<span class="glyphicon glyphicon-plus"></span>
 				 Add
 			</button>
