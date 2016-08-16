@@ -84,6 +84,14 @@ public ModelAndView hello()
 		System.out.println("be yar");
 		System.out.println(disp_name);
 		int b=disp_name.indexOf("from");
+		if(b==-1)
+		{
+			b=disp_name.indexOf("FROM");
+		}
+		if(b==-1)
+		{
+			b=disp_name.indexOf("From");
+		}
 		System.out.println(b);
 		String df=disp_name.substring(7,b-1);
 		System.out.println(df);
