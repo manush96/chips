@@ -24,8 +24,7 @@ public class Report {
 	private String report_name;
 	@Column(name = "display_name")
 	private String display_name;
-	@OneToMany
-	@JoinColumn(name="query_id")
+	@Column(name="query_id")
 	private int query_id;
 	@Column(name = "db_id")
 	private int db_id;
