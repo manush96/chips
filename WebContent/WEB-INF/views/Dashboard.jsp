@@ -26,14 +26,15 @@
 </head>
 <body>
 	<div id="header" class="container-fluid">
-		<div class="col-sm-1">
+		<div class="col-sm-2">
 			<img src="img/logo.png" style="height: 80px; width: 80px"/>
 		</div>
-		<div class="col-sm-11">
-			<h1 class="text-center">Heyyy!</h1>
+		<div class="col-sm-8">
+			<h2 class="text-center">Welcome ${key}</h2>
+		</div>
+		<div class="col-sm-1 col-sm-offset-1">
 			
-			<h2>Welcome ${key}</h2>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.html">Logout</a>
+			<h2 style="text-align: right"><a href="logout.html"><span class="glyphicon glyphicon-off"></span></a></h2>
 			<span id="session_url" style="display: none">
 			<% 
 				String url = (String) session.getAttribute("url"); 
@@ -42,21 +43,22 @@
 			%></span>
 		</div>
 	</div>
+	<hr/>
 	<div id="body" class="container-fluid">
 		<div id="sidebar-wrapper" class="col-sm-2 lr0pad">
             <ul class="sidebar-nav">
-                <li>
-                    <a class="ajax_load" ref="viewquery.html?page=1" id="dashboard_link"><span class="glyphicon glyphicon-share"></span> Dashboard</a>
+                <li class="active_sidelink">
+                    <a class="ajax_load" ref="viewquery.html?page=1" id="dashboard_link"><span class="glyphicon glyphicon-home"></span> Dashboard</a>
                 </li>
                 
                 <li>
-                    <a class="ajax_load" ref="viewdb.html?page=1"><span class="glyphicon glyphicon-ok"></span> DB Master</a>
+                    <a class="ajax_load" ref="viewdb.html?page=1"><span class="glyphicon glyphicon-th-list"></span> Manage DB</a>
                 </li>
                 <li>
-                    <a class="ajax_load" ref="reportconfig.html"><span class="glyphicon glyphicon-ok"></span> Report</a>
+                    <a class="ajax_load" ref="reportconfig.html"><span class="glyphicon glyphicon-cog"></span> Generate Report</a>
                 </li>
                 <li>
-                    <a ref="viewreport.html?page=1" class="ajax_load"><span class="glyphicon glyphicon-ok"></span> Report Grid</a>
+                    <a ref="viewreport.html?page=1" class="ajax_load"><span class="glyphicon glyphicon-list-alt"></span> View Reports</a>
                 </li>
                 <li>
                     <a href="#"><span class="glyphicon glyphicon-ok"></span> Contact</a>

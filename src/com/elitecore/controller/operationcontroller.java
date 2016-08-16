@@ -147,8 +147,9 @@ public ModelAndView hello()
 	}
 
 	@RequestMapping(value="/setsession.html")
-	public void setsession(@RequestParam("url") String url, HttpSession session)
+	public String setsession(@RequestParam("url") String url, HttpSession session)
 	{
 		session.setAttribute("url",url);
+		return "Success";
 	}
 }

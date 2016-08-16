@@ -45,9 +45,9 @@ $(document).ready(function()
 				$.ajax
 				({
 					type: "POST",
-					url: "setsession.html",
+					url: "/setsession.html",
 					data: { url: url },
-					success: function()
+					success: function(response)
 					{
 						
 					}
