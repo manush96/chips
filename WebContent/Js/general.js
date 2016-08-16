@@ -309,4 +309,47 @@ $(document).ready(function()
 					}
 				});
 			});
+	
+	$(document).on("click","#delete_selected_report",function()
+			{
+				ids = "";
+				$('.select_check:checked').each(function()
+				{
+					ids += this.getAttribute("rel");
+					ids += ",";
+				});
+				ids = ids.substring(0,ids.length - 1)
+				
+				$.confirm
+				({
+					title: 'Are you sure?',
+					content: "You won't be able to revert this action!" ,
+					confirmButton: 'Delete',
+					confirmButtonClass: 'btn-danger',
+					cancelButton: 'Cancel',
+		    		cancelButtonClass: 'btn-info',
+		    		closeIcon: true,
+		    		closeIconClass: 'glyphicon glyphicon-remove',
+		    		theme: 'material',
+		    		backgroundDismiss: true,
+					confirm: function()
+					{
+						$.ajax
+						({
+							type: "POST",
+							url: "multideleterep.html",
+							data: { ids: ids },
+							success: function(response)
+							{
+								
+							}
+						});
+						$("#dashboard_link").trigger("click");
+					},
+					cancel: function()
+					{
+					    
+					}
+				});
+			});
 });

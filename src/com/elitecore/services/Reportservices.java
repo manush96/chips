@@ -16,9 +16,21 @@ import com.elitecore.model.Report;
 public class Reportservices {
 @Autowired
 ReportDao dao;
-	public List<Report> getreportbypage(int page, int total) {
-		// TODO Auto-generated method stub
+	public List<Report> getreportbypage(int page, int total) 
+	{
 		return dao.getReportByPage(page, total);
+	}
+	public void addrep(Report rp) 
+	{
+		dao.saveReport(rp);
+	}
+	public void multidelete(String ids) 
+	{		
+		dao.multideleterep(ids);
+	}
+	public void Dltrep(int id) 
+	{
+		dao.dltReport(id);
 	}
 
 }

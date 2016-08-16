@@ -79,8 +79,8 @@ public class dbcontroller {
 		try {
 			services.addDB(dbm);
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 
