@@ -3,6 +3,7 @@ package com.elitecore.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.elitecore.model.DBMaster;
 import com.elitecore.model.Report;
+import com.elitecore.services.manipulator;
 
 @Repository("Reportdao")
 public class ReportDao {
@@ -68,6 +70,24 @@ public class ReportDao {
 		public int multideleterep(String ids) {
 			String sql = "delete from report WHERE id IN (" + ids + ")";
 			return template.update(sql);
+		}
+		public List<Map<String,Object>> runner(int id, String disp_name)
+		{
+			String sql1="select query from query where id="+id;
+			String sql="";
+			List<Map<String,Object>> list=template.queryForList(sql1);
+			for(int i=0;i<list.size();i++)
+			{
+				Map<String,Object> m=list.get(i);
+				for(Map.Entry<String, Object> entry:m.entrySet()){
+					sql=sql+(String)entry.getValue();
+				}
+			}
+			
+			
+			String final_string=manipulator.convsql(sql, disp_name);
+			
+			return template.queryForList(final_string);
 		}
 
 		

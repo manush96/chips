@@ -77,7 +77,7 @@
         				<button class="btn btn-danger remove_report_row" title="Delete" rel="${report.id}">
         					<span class="glyphicon glyphicon-trash"></span>
         				</button>
-        				<a href="url?id=${report.id }" target="_blank">
+        				<a href="reportgenerator.html?query_id=${report.query_id}&disp_name=${report.display_name}" target="_blank">
 	        				<button class="btn btn-success execute_report" title="Execute" rel="${report.id}">
 	        					<span class="glyphicon glyphicon-cog"></span>
 	        				</button>

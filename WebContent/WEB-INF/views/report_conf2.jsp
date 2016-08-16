@@ -9,9 +9,9 @@
 		        <div class="form-group">
 		            <form:input path="" name="param_name" type="text" class="form-control" value="${list}" disabled="true"/>
 		        </div>
-		        <%-- <div>
+		        <div>
 		        ${Reportdto.query_id} ${ Reportdto.db_id} ${Reportdto.report_name }
-		        </div> --%>
+		        </div>
 		    </div>
 		    <form:input path="report_name" type="hidden" value="${ Reportdto.report_name }"/>
 		    <form:input path="query_id" type="hidden" value="${ Reportdto.query_id }"/>

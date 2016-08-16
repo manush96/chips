@@ -79,5 +79,14 @@ public class reportcontroller {
 		services.Dltrep(id);
 		return new ModelAndView("grid", "Report", new Report());
 	}
-
+	@RequestMapping(value="reportgenerator.html*")
+	public ModelAndView execution(@RequestParam(value = "query_id", required = false) int query_id,
+								@RequestParam(value="disp_name",required= false)String disp_name, HttpSession session)
+	{
+		ModelAndView model=new ModelAndView();
+		
+		session.setAttribute("list", services.caller(query_id,disp_name));
+		model.setViewName("reportgen");
+		return model;
+	}
 }

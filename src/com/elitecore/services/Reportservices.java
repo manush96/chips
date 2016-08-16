@@ -1,6 +1,7 @@
 package com.elitecore.services;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,11 @@ ReportDao dao;
 	public void Dltrep(int id) 
 	{
 		dao.dltReport(id);
+	}
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public List<Map<String,Object>> caller(int sql,String disp_name)
+	{
+		return dao.runner(sql,disp_name);
 	}
 
 }
