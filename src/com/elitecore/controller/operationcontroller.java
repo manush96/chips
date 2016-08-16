@@ -88,7 +88,7 @@ public ModelAndView hello()
 		String df=disp_name.substring(7,b-1);
 		System.out.println(df);
 		ModelAndView model=new ModelAndView();
-		model.addObject("Reportdto",new Reportdto());
+		model.addObject("Reportdto",r1);
 		model.addObject("list",df);
 		model.setViewName("report_conf2");
 		return model;	

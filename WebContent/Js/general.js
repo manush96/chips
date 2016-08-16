@@ -166,6 +166,42 @@ $(document).ready(function()
 		});
 		
 	});
+	
+	$(document).on("click",".remove_report_row",function()
+	{
+		id = $(this).attr('rel');
+		$.confirm
+		({
+			title: 'Are you sure?',
+			content: "You won't be able to revert this action!" ,
+			confirmButton: 'Delete',
+			confirmButtonClass: 'btn-danger',
+			cancelButton: 'Cancel',
+    		cancelButtonClass: 'btn-info',
+    		closeIcon: true,
+    		closeIconClass: 'glyphicon glyphicon-remove',
+    		theme: 'material',
+    		backgroundDismiss: true,
+			confirm: function()
+			{
+				$.ajax
+				({
+					type: "POST",
+					url: "SingleDeleterep.html",
+					data: { id: id },
+					success: function(response)
+					{
+						$("#dashboard_link").trigger("click");
+					}
+				});
+			},
+			cancel: function()
+			{
+			    
+			}
+		});
+	});	
+	
 	$(document).on("click","#add_parameters", function()
 	{
 		$("#add_append_div").html('');
@@ -207,23 +243,23 @@ $(document).ready(function()
 		
 	});		
 	$(document).on("click","#goto_2",function()
+	{
+		$(".report_div").hide();
+		query = $("#rep_query").val();
+		name = $("#report_name").val();
+		db_id = $("#rep_db").val();
+		$.ajax
+		({
+			type: "GET",
+			url: "get_page_2.html",
+			data: { query: query, db_id:db_id, name:name  },
+			success: function(response)
 			{
-				$(".report_div").hide();
-				query = $("#rep_query").val();
-				name = $("#report_name").val();
-				db_id = $("#rep_db").val();
-				$.ajax
-				({
-					type: "GET",
-					url: "get_page_2.html",
-					data: { query: query, db_id:db_id, name:name  },
-					success: function(response)
-					{
-						$("#report_div_2").html(response);
-					}
-				});
-				$("#report_div_2").show();
-			});	
+				$("#report_div_2").html(response);
+			}
+		});
+		$("#report_div_2").show();
+	});	
 	$(document).on("click","#delete_selected",function()
 	{
 		ids = "";
@@ -268,88 +304,88 @@ $(document).ready(function()
 	});
 	
 	$(document).on("click","#delete_selected_db",function()
+	{
+		ids = "";
+		$('.select_check:checked').each(function()
+		{
+			ids += this.getAttribute("rel");
+			ids += ",";
+		});
+		ids = ids.substring(0,ids.length - 1)
+		
+		$.confirm
+		({
+			title: 'Are you sure?',
+			content: "You won't be able to revert this action!" ,
+			confirmButton: 'Delete',
+			confirmButtonClass: 'btn-danger',
+			cancelButton: 'Cancel',
+    		cancelButtonClass: 'btn-info',
+    		closeIcon: true,
+    		closeIconClass: 'glyphicon glyphicon-remove',
+    		theme: 'material',
+    		backgroundDismiss: true,
+			confirm: function()
 			{
-				ids = "";
-				$('.select_check:checked').each(function()
-				{
-					ids += this.getAttribute("rel");
-					ids += ",";
-				});
-				ids = ids.substring(0,ids.length - 1)
-				
-				$.confirm
+				$.ajax
 				({
-					title: 'Are you sure?',
-					content: "You won't be able to revert this action!" ,
-					confirmButton: 'Delete',
-					confirmButtonClass: 'btn-danger',
-					cancelButton: 'Cancel',
-		    		cancelButtonClass: 'btn-info',
-		    		closeIcon: true,
-		    		closeIconClass: 'glyphicon glyphicon-remove',
-		    		theme: 'material',
-		    		backgroundDismiss: true,
-					confirm: function()
+					type: "POST",
+					url: "multideletedb.html",
+					data: { ids: ids },
+					success: function(response)
 					{
-						$.ajax
-						({
-							type: "POST",
-							url: "multideletedb.html",
-							data: { ids: ids },
-							success: function(response)
-							{
-								
-							}
-						});
-						$("#dashboard_link").trigger("click");
-					},
-					cancel: function()
-					{
-					    
+						
 					}
 				});
-			});
-	
+				$("#dashboard_link").trigger("click");
+			},
+			cancel: function()
+			{
+			    
+			}
+		});
+	});
+
 	$(document).on("click","#delete_selected_report",function()
+	{
+		ids = "";
+		$('.select_check:checked').each(function()
+		{
+			ids += this.getAttribute("rel");
+			ids += ",";
+		});
+		ids = ids.substring(0,ids.length - 1)
+		
+		$.confirm
+		({
+			title: 'Are you sure?',
+			content: "You won't be able to revert this action!" ,
+			confirmButton: 'Delete',
+			confirmButtonClass: 'btn-danger',
+			cancelButton: 'Cancel',
+    		cancelButtonClass: 'btn-info',
+    		closeIcon: true,
+    		closeIconClass: 'glyphicon glyphicon-remove',
+    		theme: 'material',
+    		backgroundDismiss: true,
+			confirm: function()
 			{
-				ids = "";
-				$('.select_check:checked').each(function()
-				{
-					ids += this.getAttribute("rel");
-					ids += ",";
-				});
-				ids = ids.substring(0,ids.length - 1)
-				
-				$.confirm
+				$.ajax
 				({
-					title: 'Are you sure?',
-					content: "You won't be able to revert this action!" ,
-					confirmButton: 'Delete',
-					confirmButtonClass: 'btn-danger',
-					cancelButton: 'Cancel',
-		    		cancelButtonClass: 'btn-info',
-		    		closeIcon: true,
-		    		closeIconClass: 'glyphicon glyphicon-remove',
-		    		theme: 'material',
-		    		backgroundDismiss: true,
-					confirm: function()
+					type: "POST",
+					url: "multideleterep.html",
+					data: { ids: ids },
+					success: function(response)
 					{
-						$.ajax
-						({
-							type: "POST",
-							url: "multideleterep.html",
-							data: { ids: ids },
-							success: function(response)
-							{
-								
-							}
-						});
-						$("#dashboard_link").trigger("click");
-					},
-					cancel: function()
-					{
-					    
+						
 					}
 				});
-			});
+				$("#dashboard_link").trigger("click");
+			},
+			cancel: function()
+			{
+			    
+			}
+		});
+	});
 });

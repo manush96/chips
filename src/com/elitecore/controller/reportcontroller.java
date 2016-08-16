@@ -56,7 +56,9 @@ public class reportcontroller {
 
 		try 
 		{
+			System.out.println("in the controller, before invoking services function");
 			services.addrep(rp);
+			System.out.println("in the controller, after adding report");
 		} catch (Exception e)
 		{			
 			e.printStackTrace();

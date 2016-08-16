@@ -31,7 +31,9 @@ public class ReportDao {
 		
 
 		public void saveReport(Report r) {
+			System.out.println("in dao, before invoking add report persist");
 			em1.persist(r);
+			System.out.println("in dao, after invoking add report persist");
 		}
 		public int dltReport(int id) {
 			
