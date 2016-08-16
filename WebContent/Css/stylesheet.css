@@ -169,6 +169,13 @@ hr
 {
 	
 }
+#wizard_div
+{
+	border: 3px solid white;
+	border-top: 7px solid black;
+	box-shadow: -5px 5px 5px gray;
+	padding: 10px;
+}
 #footer
 {
 	min-height: 80px;
@@ -177,4 +184,14 @@ hr
 {
 	margin-left: 5px;
 	margin-right: 5px;
+}
+.select2-selection
+{
+	height: 40px !important;
+	font-size: 19px;
+	padding: 5px;
+}
+.select2-selection__arrow
+{
+	padding-top: 35px;
 }

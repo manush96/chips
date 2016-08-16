@@ -30,6 +30,8 @@ $(document).ready(function()
 		if(url == "" || url == undefined || url == null)
 			return;
 		
+		$(".sidebar-nav li").removeClass("active_sidelink");
+		$(this).parent().addClass("active_sidelink");
 		$.ajax
 		({
 			type: "GET",
@@ -244,10 +246,18 @@ $(document).ready(function()
 	});		
 	$(document).on("click","#goto_2",function()
 	{
-		$(".report_div").hide();
+		
 		query = $("#rep_query").val();
 		name = $("#report_name").val();
 		db_id = $("#rep_db").val();
+		
+		if(query == "" || name == "" || db_id == "" || query == null || name == null || db_id == null || query == undefined || name == undefined || db_id == undefined)
+		{
+			$("#report_div_1").find(".myError").text("All fields are necessary!");
+			return;
+		}
+		$(".report_div").hide();
+		$("#report_div_1").find(".myError").text("");
 		$.ajax
 		({
 			type: "GET",
