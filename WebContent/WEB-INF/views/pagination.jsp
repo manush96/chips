@@ -189,37 +189,39 @@
 	            			</div>
 						</div>
 						<div class="modal-body">
-							<form:form modelAttribute="querydto" action="EditQuery.html" class="form-horizontal" role="form" method="POST">
-					            <div class="form-group" style="display: none">
-						            <div class="input-group col-sm-11">
-						                <span class = "input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						                <form:input path="name" type="hidden" class="form-control input-lg tip_danger_lg" id="name" name="name" pattern="^([a-zA-z0-9]{6,256})$" placeholder="Name" required="true" oninvalid="setCustomValidity('Please enter Full name')" oninput="setCustomValidity('')" data-toggle="tooltip" data-placement="right" title=""/>
+							<div class="col-sm-12">
+								<form:form modelAttribute="querydto" action="EditQuery.html" class="form-horizontal" role="form" method="POST">
+						            <div class="form-group" style="display: none">
+							            <div class="input-group col-sm-11">
+							                <span class = "input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							                <form:input path="name" type="hidden" class="form-control input-lg tip_danger_lg" id="name" name="name" pattern="^([a-zA-z0-9]{6,256})$" placeholder="Name" required="true" oninvalid="setCustomValidity('Please enter Full name')" oninput="setCustomValidity('')" data-toggle="tooltip" data-placement="right" title=""/>
+							            </div>
+							        </div>
+								<form:input path="id" type="hidden" class="form-control input-lg tip_danger_lg" id="id" name="id" />
+						        <div class="form-group">
+						           <div class="input-group col-sm-11">
+						                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+						                <form:input path="query" type="text" class="form-control input-lg tip_danger_lg" id="query" name="query" placeholder="Query" required="true" oninvalid="setCustomValidity('Please enter Query')" oninput="setCustomValidity('')" data-toggle="tooltip" data-placement="right" title=""/>
 						            </div>
 						        </div>
-							<form:input path="id" type="hidden" class="form-control input-lg tip_danger_lg" id="id" name="id" />
-					        <div class="form-group">
-					           <div class="input-group col-sm-11">
-					                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-					                <form:input path="query" type="text" class="form-control input-lg tip_danger_lg" id="query" name="query" placeholder="Query" required="true" oninvalid="setCustomValidity('Please enter Query')" oninput="setCustomValidity('')" data-toggle="tooltip" data-placement="right" title=""/>
+				
+						        <div class="form-group">
+						            <div class="input-group col-sm-11">
+						                <span class = "input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+						                <form:input path="description" type="text" class="form-control input-lg tip_danger_lg" id="pword" name="pword" placeholder="Description" required="true" oninvalid="setCustomValidity('Please Enter Description')" oninput="setCustomValidity('')" data-toggle="tooltip" data-placement="right" title=""/>
+						            </div>
+						        </div>
+				
+							<br/>
+					            <div class="form-group">        
+					                <div class="">
+					                    <button type="submit" id="submit" class="btn btn-success submit">
+					                        <span class="glyphicon glyphicon-ok"></span> Save
+					                    </button>
+					                </div>
 					            </div>
-					        </div>
-			
-					        <div class="form-group">
-					            <div class="input-group col-sm-11">
-					                <span class = "input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-					                <form:input path="description" type="text" class="form-control input-lg tip_danger_lg" id="pword" name="pword" placeholder="Description" required="true" oninvalid="setCustomValidity('Please Enter Description')" oninput="setCustomValidity('')" data-toggle="tooltip" data-placement="right" title=""/>
-					            </div>
-					        </div>
-			
-						<br/>
-				            <div class="form-group">        
-				                <div class="">
-				                    <button type="submit" id="submit" class="btn btn-success submit">
-				                        <span class="glyphicon glyphicon-ok"></span> Save
-				                    </button>
-				                </div>
-				            </div>
-				        </form:form>
+					        </form:form>
+						</div>
 					</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
