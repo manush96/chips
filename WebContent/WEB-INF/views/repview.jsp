@@ -12,7 +12,7 @@
 	         </div>
 	     </div>
 	     <div class="col-sm-2">
-	     	<button class="btn btn-success" type="button" id="get_queries">
+	     	<button class="btn btn-success" type="button" id="get_reports">
 	     		<span class="glyphicon glyphicon-search"></span> Search
 	     	</button> 
 	     </div>

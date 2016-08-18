@@ -1,5 +1,6 @@
 package com.elitecore.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,9 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.elitecore.dto.DBMasterDto;
 import com.elitecore.dto.Reportdto;
+import com.elitecore.dto.querydto;
 import com.elitecore.model.DBMaster;
+import com.elitecore.model.Query;
 import com.elitecore.model.Report;
+import com.elitecore.services.DBservices;
 import com.elitecore.services.Reportservices;
+import com.elitecore.services.queryservices;
 import com.elitecore.services.transfer;
 
 @Controller
@@ -24,6 +29,33 @@ import com.elitecore.services.transfer;
 public class reportcontroller {
 	@Autowired
 	Reportservices services;
+	
+	@Autowired
+	queryservices services1;
+
+	@Autowired
+	DBservices services2;
+
+	@RequestMapping(value = "reportconfig.html")
+	public ModelAndView reportconfig() {
+		ModelAndView model = new ModelAndView();
+		List<Query> list = new ArrayList();
+		List<Query> list1 = new ArrayList();
+		
+		list = services1.queryname();		
+		list1 = services2.dbname();		
+		
+		System.out.println(list.size()+"is the size of the list");
+		
+		model.addObject("Reportdto", new Reportdto());
+		model.addObject("list", list);
+		model.addObject("list1", list1);
+		model.setViewName("report_conf");
+		
+		return model;
+	}
+	
+	
 	@RequestMapping(value = "/viewreport.html*")
 	public ModelAndView getPage(@RequestParam(value = "page", required = false) int page, HttpSession session) {
 		session.setAttribute("page_id", page);
@@ -46,6 +78,37 @@ public class reportcontroller {
 		model.addObject("count", no);
 		model.setViewName("repview");
 		return model;
+	}
+	
+	@RequestMapping(value="/viewreportskey.html*")
+	public ModelAndView getPage(
+	@RequestParam(value="page", required=false) int pageid, @RequestParam(value="key", required=false, defaultValue="") String key, HttpSession session)
+	{
+		session.setAttribute("page_id",pageid);
+		
+		int total=5;
+		if(pageid==1){}
+		else
+		{
+			pageid=(pageid-1)*total+1;
+		}
+		
+		List<Report> list=services.getbykeyword(key, pageid, total);
+		
+		int result = services.getcount(key);
+		int no;
+		if(result%5 == 0)
+			no = (result/5);
+		else
+			no = (result/5)+1;
+		
+		ModelAndView model=new ModelAndView();
+		model.addObject("querydto",new querydto());
+		model.addObject("list",list);
+		model.addObject("count", no);
+		model.addObject("key",key);
+		model.setViewName("repview");
+		return model;	
 	}
 	
 	@RequestMapping(value = "/addrep.html*", method = RequestMethod.POST)

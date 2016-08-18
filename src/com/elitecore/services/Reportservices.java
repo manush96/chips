@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.elitecore.dao.ReportDao;
 import com.elitecore.model.DBMaster;
+import com.elitecore.model.Query;
 import com.elitecore.model.Report;
 @Service("Reportservices")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -44,6 +45,19 @@ ReportDao dao;
 	public List<Map<String,Object>> caller(int sql,String disp_name)
 	{
 		return dao.runner(sql,disp_name);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public List<Report> getbykeyword(String keyword,int pageid, int total) {
+		
+		return dao.getReportBykeyword(keyword, pageid, total);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public int getcount(String key) {
+
+		int result=dao.getcount(key);
+		return result;
 	}
 
 }

@@ -56,20 +56,7 @@ public class dbcontroller {
 		model.setViewName("dbview");
 		return model;
 	}
-	@RequestMapping(value = "reportconfig.html")
-	public ModelAndView reportconfig() {
-		ModelAndView model = new ModelAndView();
-		List<Query> list = new ArrayList();
-		list = services1.queryname();
-		List<Query> list1 = new ArrayList();
-		list1 = services.dbname();
-		model.addObject("Reportdto", new Reportdto());
-		System.out.println(list.size());
-		model.addObject("list", list);
-		model.addObject("list1", list1);
-		model.setViewName("report_conf");
-		return model;
-	}
+	
 	@RequestMapping(value = "/adddb.html*", method = RequestMethod.POST)
 	public String getFilter(@ModelAttribute DBMasterDto db,
 			@RequestParam(value = "page", required = false) int pageid) {
