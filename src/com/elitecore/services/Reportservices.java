@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.elitecore.model.User;
 import com.elitecore.dao.ReportDao;
 import com.elitecore.model.DBMaster;
 import com.elitecore.model.Query;
@@ -73,6 +74,10 @@ ReportDao dao;
 
 		int result=dao.getcount(key);
 		return result;
+	}
+	public List<User> sample() {
+		// TODO Auto-generated method stub
+		return dao.sample();
 	}
 
 }

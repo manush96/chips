@@ -20,13 +20,21 @@
 System.out.println((String) session.getAttribute("query")+"this is it");
 
 %>
-
-<c:forEach items="${list}" var="i">
-<br/>
-<input type="text" class="form-control input-lg" id="${i}" size="20" name="${i}" placeholder="Value of ${i}" required="true" oninvalid="setCustomValidity('Please enter valid Username')" oninput="setCustomValidity('')"/>
-</c:forEach>
-<br/>
-<input type="submit">
+	<div class="col-sm-offset-2 col-sm-8" style="margin-top: 50px; padding: 50px; box-shadow: -8px 8px 5px gray; border: 2px solid #ccc; border-top: 7px solid black">
+		<c:forEach items="${list}" var="i">
+			<div class="row">
+				<div class="form-group">		
+					<input type="text" class="form-control input-lg" id="${i}" size="20" name="${i}" placeholder="Value of ${i}"/>
+				</div>
+			</div>
+			<div class="clearfix"></div><br/>
+		</c:forEach>
+		<div class="row">
+			<button type="submit" class="btn btn-success">
+				<span class="glyphicon glyphicon-cog"></span> Generate
+			</button>
+		</div>
+	</div>
 </form>
 </body>
 </html>
