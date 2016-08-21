@@ -139,7 +139,6 @@ public class querydao {
 		template.update(sql1);
 		return template.update(sql);
 	}
-
 	public HashMap getparams(List<Query> list) {
 		
 		Query query = new Query();
@@ -190,5 +189,4 @@ public class querydao {
 		System.out.println("End print");
 
 	}
-
 }

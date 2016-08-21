@@ -46,7 +46,22 @@ ReportDao dao;
 	{
 		return dao.runner(sql,disp_name);
 	}
-	
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public List<Map<String,Object>> caller1(String qu,String disp_name)
+	{
+		return dao.runner1(qu,disp_name);
+	}
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public List<Query> getbyid(int id)
+	{
+		return dao.getbyid(id);
+	}
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public int getparam(int x)
+	{
+		return dao.getparams(x);
+	}
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public List<Report> getbykeyword(String keyword,int pageid, int total) {
 		

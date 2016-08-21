@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="Js/jquery.js"></script>
 	<script type="text/javascript" src="Js/login.js"></script>
 	 -->
-	 <link rel="stylesheet" type="text/css" href="CssAndJs/bootstrap.css"/> 
+	<link rel="stylesheet" type="text/css" href="CssAndJs/bootstrap.css"/> 
  	<link rel="stylesheet" type="text/css" href="CssAndJs/stylesheet.css"/> 
  	<script type="text/javascript" src="CssAndJs/bootstrap.js"></script>
 	<script type="text/javascript" src="CssAndJs/general.js"></script>
