@@ -53,7 +53,7 @@ public class DBMasterDao {
 		}
 		
 		public List<DBMaster> getDBByPage(int pageid,int total){
-			String sql="select * from db_master";
+			String sql="select * from db_master limit "+ (pageid - 1) + "," + total;
 			System.out.println(sql);
 			return template.query(sql,new RowMapper<DBMaster>(){
 					public DBMaster mapRow(ResultSet rs, int row) throws SQLException {

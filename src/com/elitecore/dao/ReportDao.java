@@ -43,16 +43,9 @@ public class ReportDao {
 			template.update(sql);
 			return template.update(sql);
 		}
-
-		public int getcount() throws DataAccessException{
-			
-			String sql="select count(`id`) from report";
-			int total= template.queryForInt(sql);
-			return total;
-		}
 		
 		public List<Report> getReportByPage(int pageid,int total){
-			String sql="select * from report";
+			String sql="select * from report LIMIT " + (pageid - 1) + "," + total;
 			System.out.println(sql);
 			return template.query(sql,new RowMapper<Report>(){
 					public Report mapRow(ResultSet rs, int row) throws SQLException {

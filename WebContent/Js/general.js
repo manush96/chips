@@ -83,20 +83,20 @@ $(document).ready(function()
 	});
 	
 	$(document).on("click","#get_reports",function()
+	{
+		var key = $("#keyword").val();
+		var page = $("#page_id").text().trim();
+		$.ajax
+		({
+			type: "GET",
+			url: "viewreport.html",
+			data: { page: "1", key: key },
+			success: function(response)
 			{
-				var key = $("#keyword").val();
-				var page = $("#page_id").text().trim();
-				$.ajax
-				({
-					type: "GET",
-					url: "viewreportskey.html",
-					data: { page: "1", key: key },
-					success: function(response)
-					{
-						$("#content_div").html(response);
-					}
-				});
-			});
+				$("#content_div").html(response);
+			}
+		});
+	});
 	
 	$(document).on("click",".edit_query_row",function()
 	{

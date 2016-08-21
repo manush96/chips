@@ -55,7 +55,7 @@
 							</center>
 						</div>
 						<div class="col-sm-6 lr0pad">
-							<p>${((sessionScope.page_id - 1)*5) + i.index + 1}</p>
+							<p>${((sessionScope.page_id - 1)*5) + j.index + 1}</p>
 						</div>
 					</div>
 	       			<div class="col-sm-2 lr0pad">
