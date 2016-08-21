@@ -286,6 +286,26 @@ $(document).ready(function()
 		});
 		$("#report_div_2").show();
 	});	
+	
+	/*$(document).on("click","#goto_2",function()
+			{
+				$(".report_div").hide();
+				query = $("#rep_query").val();
+				name = $("#report_name").val();
+				db_id = $("#rep_db").val();
+				$.ajax
+				({
+					type: "GET",
+					url: "get_page_2.html",
+					data: { query: query, db_id:db_id, name:name  },
+					success: function(response)
+					{
+						$("#report_div_2").html(response);
+					}
+				});
+				$("#report_div_2").show();
+			});*/
+	
 	$(document).on("click","#delete_selected",function()
 	{
 		ids = "";

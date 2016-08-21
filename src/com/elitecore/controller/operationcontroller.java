@@ -69,20 +69,17 @@ public ModelAndView hello()
 	@RequestMapping(value="/get_page_2.html")
 	public ModelAndView hello5(@RequestParam("query") String temp, @RequestParam("name") String name,@RequestParam("db_id") String db_id1)
 	{	
-		System.out.println(temp);
 		int a=temp.indexOf("^");
-		System.out.println(a);
 		int query_id=Integer.parseInt(temp.substring(0,a));
-		System.out.println(query_id);
+		
 		String disp_name=temp.substring(a+1);
-		System.out.println(disp_name);
 		Reportdto r1=new Reportdto();
 		r1.setReport_name(name);
 		r1.setQuery_id(query_id);
+		
 		int db_id= Integer.parseInt(db_id1);
 		r1.setDb_id(db_id);
-		System.out.println("be yar");
-		System.out.println(disp_name);
+		
 		int b=disp_name.indexOf("from");
 		if(b==-1)
 		{
@@ -92,15 +89,16 @@ public ModelAndView hello()
 		{
 			b=disp_name.indexOf("From");
 		}
-		System.out.println(b);
+
 		String df=disp_name.substring(7,b-1);
-		System.out.println(df);
+
 		ModelAndView model=new ModelAndView();
-		model.addObject("Reportdto",new Reportdto());
+		model.addObject("Reportdto",r1);
 		model.addObject("list",df);
 		model.setViewName("report_conf2");
-		return model;	
-	}	
+		return model;
+	}
+	
 	@RequestMapping(value="/success_reg.html", method = RequestMethod.GET)
 	public ModelAndView save1(@ModelAttribute userdto  userdto)
 	{
