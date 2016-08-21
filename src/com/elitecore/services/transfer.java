@@ -40,6 +40,7 @@ public static List<queryin> queryintrans(querydto q3)
 	int i=q3.getStatus();
 	String[] s1=q3.getParam_name();
 	String[] s2=q3.getParam_type();
+	System.out.println("Status: " + i);
 	for(int j=0;j<i;j++)
 	{
 		System.out.println("halellujah");
@@ -47,7 +48,8 @@ public static List<queryin> queryintrans(querydto q3)
 		q2.setParam_name(s1[j]);
 		q2.setParam_type(s2[j]);
 		q1.add(q2);
-		
+		System.out.println("s1[j]" + s1[j]);
+		System.out.println("s2[j]" + s2[j]);
 	}
 	return q1;
 }

@@ -65,8 +65,9 @@
 	       			</div>
 	       			<div class="col-sm-2 lr0pad">
 	        			<div class="col-sm-6 lr0pad">
-	        				<button class="btn btn-primary edit_query_row" title="Edit" data-toggle="modal" data-target="#edit_query_modal" rel="${query.id}">
+	        				<button class="btn btn-primary edit_query_row" title="Edit" data-toggle="modal" data-status="${query.status}" data-target="#edit_query_modal" rel="${query.id}">
 	        					<span class="glyphicon glyphicon-pencil"></span>
+	        					<span class="params" style="display: none"><c:out value="${params[query.id]}"/></span>
 	        				</button>
 	        				<button class="btn btn-danger remove_query_row" title="Delete" rel="${query.id}">
 	        					<span class="glyphicon glyphicon-trash"></span>
@@ -189,7 +190,7 @@
 	            			</div>
 						</div>
 						<div class="modal-body">
-							<div class="col-sm-12">
+							<div id="edit_body" class="col-sm-12">
 								<form:form modelAttribute="querydto" action="EditQuery.html" class="form-horizontal" role="form" method="POST">
 						            <div class="form-group" style="display: none">
 							            <div class="input-group col-sm-11">
@@ -197,7 +198,8 @@
 							                <form:input path="name" type="hidden" class="form-control input-lg tip_danger_lg" id="name" name="name" pattern="^([a-zA-z0-9]{6,256})$" placeholder="Name" required="true" oninvalid="setCustomValidity('Please enter Full name')" oninput="setCustomValidity('')" data-toggle="tooltip" data-placement="right" title=""/>
 							            </div>
 							        </div>
-								<form:input path="id" type="hidden" class="form-control input-lg tip_danger_lg" id="id" name="id" />
+								<form:input path="id" type="hidden" id="id" name="id" />
+								<form:input path="status" type="hidden" id="status" name="status" />
 						        <div class="form-group">
 						           <div class="input-group col-sm-11">
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
@@ -211,16 +213,33 @@
 						                <form:input path="description" type="text" class="form-control input-lg tip_danger_lg" id="pword" name="pword" placeholder="Description" required="true" oninvalid="setCustomValidity('Please Enter Description')" oninput="setCustomValidity('')" data-toggle="tooltip" data-placement="right" title=""/>
 						            </div>
 						        </div>
-				
+							    <div class="append_div col-sm-12 lr0pad">
+									
+								</div>
+								<div id="param_clone" class="my_param_clone col-sm-12 lr0pad" style="display: none">
+									<form:input path="param_id" type="hidden" name="param_id" />
+									<div class="col-sm-5">
+								        <div class="form-group">
+								            <form:input path="param_name" name="param_name" type="text" class="form-control" placeholder="Parameter name"/>
+								        </div>
+								    </div>
+									<div class="col-sm-5">
+										<div class="form-group">
+								            <form:input path="param_type" name="param_type" type="text" class="form-control" placeholder="Parameter type"/>
+								        </div>
+								    </div>
+								    
+								</div>					
 							<br/>
 					            <div class="form-group">        
 					                <div class="">
-					                    <button type="submit" id="submit" class="btn btn-success submit">
+					                    <button type="submit" id="edit_query_submit" class="btn btn-success submit">
 					                        <span class="glyphicon glyphicon-ok"></span> Save
 					                    </button>
 					                </div>
 					            </div>
 					        </form:form>
+					        
 						</div>
 					</div>
 						<div class="modal-footer">

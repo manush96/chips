@@ -104,16 +104,33 @@ $(document).ready(function()
 		name = $('div[data-id="'+id+'"]').find(".name_text").text();
 		query = $('div[data-id="'+id+'"]').find(".query_text").text();
 		desc = $('div[data-id="'+id+'"]').find(".description_text").text();
-		
-		//----		
 		no_of_var = $('div[data-id="'+id+'"]').find(".no_of_var_text").text();
-		//----
+		status = $(this).attr("data-status");
 		
 		$("#edit_query_modal").find("#name").val(name);
 		$("#edit_query_modal").find("#query").val(query);
 		$("#edit_query_modal").find("#pword").val(desc);
 		$("#edit_query_modal").find("#id").val(id);
+		$("#edit_query_modal").find("#status").val(status);
+		$("#edit_query_modal").find(".append_div").html("");
+		params = $(this).find('.params').text();
+		var myData = JSON.parse(params);
+		var myClone;
+		$.each(myData,function(key, obj)
+		{
+			myClone = $("#edit_query_modal").find("#param_clone").clone();
+			$("#edit_query_modal").find(".append_div").append(myClone);
+			$("#edit_query_modal").find(".append_div").find("#param_clone").find("#param_id").val(obj['id']);
+			$("#edit_query_modal").find(".append_div").find("#param_clone").find("#param_name").val(obj['param_name']);
+			$("#edit_query_modal").find(".append_div").find("#param_clone").find("#param_type").val(obj['param_type']);
+			$("#edit_query_modal").find(".append_div").find(".my_param_clone").removeAttr("id");
+			$("#edit_query_modal").find(".append_div").find(".my_param_clone").show();	
+		});
 	});		
+	$(document).on("click","#edit_query_submit",function(e)
+	{
+		$("#param_clone").remove();
+	});
 	$(document).on("click",".remove_query_row",function()
 	{
 		id = $(this).attr('rel');

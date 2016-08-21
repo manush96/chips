@@ -2,6 +2,7 @@ package com.elitecore.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.elitecore.model.Query;
 import com.elitecore.model.queryin;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @SuppressWarnings("unused")
 @Repository("querydao")
@@ -134,6 +138,57 @@ public class querydao {
 		String sql1 = "delete from queryin WHERE query_id IN (" + ids + ")";
 		template.update(sql1);
 		return template.update(sql);
+	}
+
+	public HashMap getparams(List<Query> list) {
+		
+		Query query = new Query();
+		int id;
+		String myJson;
+		HashMap params = new HashMap();
+		System.out.println("STARTTT");
+		for(int i=0; i<list.size(); i++)
+		{
+			query = list.get(i);
+			id = query.getId();
+			
+			String sql = "select id, param_name, param_type from queryin WHERE query_id = " + id;
+			System.out.println(sql);
+			List<queryin> lq = get_queryin_params(sql);
+			myJson = new Gson().toJson(lq);
+			params.put(id,myJson);
+		}
+		return params;
+	}
+
+	private List<queryin> get_queryin_params(String sql) {
+		return template.query(sql, new RowMapper<queryin>() {
+			public queryin mapRow(ResultSet rs, int row) throws SQLException {
+				
+				queryin e = new queryin();
+				e.setParam_name(rs.getString("param_name"));
+				e.setParam_type(rs.getString("param_type"));
+				return e;
+			}
+		});
+	}
+
+	public void updateparamquery(List<queryin> list, int id) {
+		
+		System.out.println("Start print");
+		for (int i = 0; i < list.size(); i++) {
+
+			queryin q = list.get(i);
+			q.setQuery_id(id);
+		
+			String sql = "UPDATE `queryin` SET `param_name`='" + q.getParam_name() + "',`param_type`='" + q.getParam_type()
+					+ "' WHERE `id`='" + id + "'";
+			System.out.println(sql);
+			 template.update(sql);
+
+		}
+		System.out.println("End print");
+
 	}
 
 }

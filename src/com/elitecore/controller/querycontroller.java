@@ -1,9 +1,14 @@
 package com.elitecore.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,6 +50,7 @@ public class querycontroller {
 		}
 		
 		List<Query> list=services.getbykeyword(key, pageid, total);
+		HashMap<Long, String> params = services.getparams(list);
 		
 		int result = services.getcount(key);
 		int no;
@@ -58,6 +64,7 @@ public class querycontroller {
 		model.addObject("list",list);
 		model.addObject("count", no);
 		model.addObject("key",key);
+		model.addObject("params",params);
 		model.setViewName("pagination");
 		return model;	
 	}
@@ -70,17 +77,18 @@ public class querycontroller {
 		
 		Query query=transfer.querytrans(querydto);
 		List<queryin> list=transfer.queryintrans(querydto);
-		try {
+		try
+		{
 			services.addQuery(query);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
-		try{
+		
+		try
+		{
 			services.queryparam(list);			
-
-			
 		}
 		catch(Exception e)
 		{
@@ -104,9 +112,29 @@ public class querycontroller {
 	}
 	
 	@RequestMapping(value="/EditQuery.html")
-	public String Editquery(@ModelAttribute Query Query)
+	public String Editquery(@ModelAttribute querydto querydto)
 	{
-		services.Updatequery(Query);
+		Query query=transfer.querytrans(querydto);
+		List<queryin> list=transfer.queryintrans(querydto);
+
+		int id = querydto.getId();
+		try
+		{
+			services.Updatequery(query);
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		try
+		{
+			services.UpdateQueryparam(list, id);			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 		return "redirect:profile.html";		//return new ModelAndView("pagination","list",new list());
 	}

@@ -1,5 +1,6 @@
 package com.elitecore.services;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,12 @@ public class queryservices {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public HashMap getparams(List<Query> list) {
+		
+		return dao.getparams(list);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void Updatequery(Query query) {
 		int result= dao.editUser(query);
 	}
@@ -71,6 +78,12 @@ public class queryservices {
 	{
 		System.out.println("break3");
 		dao.addparamquery(list);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public void UpdateQueryparam(List<queryin> list, int id) {
+		// TODO Auto-generated method stub
+		dao.updateparamquery(list, id);
 	}
 	
 }

@@ -8,6 +8,15 @@ private String query;
 private int status;
 private String[] param_type;
 private String[] param_name;
+private int[] param_id;
+
+
+public int[] getParam_id() {
+	return param_id;
+}
+public void setParam_id(int[] param_id) {
+	this.param_id = param_id;
+}
 public String getName() {
 	return name;
 }
