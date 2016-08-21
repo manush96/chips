@@ -135,5 +135,5 @@ public class querydao {
 		template.update(sql1);
 		return template.update(sql);
 	}
-
+	
 }

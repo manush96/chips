@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.elitecore.model.DBMaster;
+import com.elitecore.model.Query;
 import com.elitecore.model.Report;
 import com.elitecore.services.manipulator;
 
@@ -64,7 +65,18 @@ public class ReportDao {
 			String sql = "delete from report WHERE id IN (" + ids + ")";
 			return template.update(sql);
 		}
-		
+		public List<Query> getbyid(int id)
+		{
+			String sql="select id,query from query where id="+id;
+			return template.query(sql, new RowMapper<Query>() {
+				public Query mapRow(ResultSet rs, int row) throws SQLException {
+					Query e = new Query();
+					e.setId(rs.getInt("id"));
+					e.setQuery(rs.getString("query"));
+					return e;
+				}
+			});
+		}
 		public List<Map<String,Object>> runner(int id, String disp_name)
 		{
 			String sql1="select query from query where id="+id;
@@ -83,7 +95,12 @@ public class ReportDao {
 			String final_string=manipulator.convsql(sql, disp_name);			
 			return template.queryForList(final_string);
 		}
-		
+
+		public List<Map<String,Object>> runner1(String query, String disp_name)
+		{
+			String final_string=manipulator.convsql(query, disp_name);			
+			return template.queryForList(final_string);
+		}
 		public List<Report> getReportBykeyword(String keyword,int pageid,int total){
 			String sql = "select * from report where report_name LIKE '%" + keyword + "%' limit " + (pageid - 1) + "," + total;
 			System.out.println(sql);
@@ -107,5 +124,9 @@ public class ReportDao {
 			return total;
 		}
 
-		
+		public int getparams(int x)
+		{
+			String sql="select status from query where id="+x;
+			return template.queryForInt(sql);
+		}
 }

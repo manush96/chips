@@ -3,6 +3,7 @@ package com.elitecore.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.elitecore.model.Query;
 import com.elitecore.model.Report;
 import com.elitecore.services.DBservices;
 import com.elitecore.services.Reportservices;
+import com.elitecore.services.querycount;
 import com.elitecore.services.queryservices;
 import com.elitecore.services.transfer;
 
@@ -123,9 +125,51 @@ public class reportcontroller {
 								@RequestParam(value="disp_name",required= false)String disp_name, HttpSession session)
 	{
 		ModelAndView model=new ModelAndView();
-		
+		int x=services.getparam(query_id);
+		if(x>0)
+		{
+			List<Query> list=services.getbyid(query_id);
+			if(list.size()==1)
+			{
+				String query=list.get(0).getQuery();
+				System.out.println(query+"that is");
+				List<String> l=querycount.querycounter(query);
+				session.setAttribute("disp_name", disp_name);
+				ModelAndView model1=new ModelAndView();
+				model1.addObject("list",l);
+//				model1.addObject("query",query);
+				session.setAttribute("query", query);
+				model1.setViewName("paramwiz");
+				return model1;
+			}
+			
+		}
+		else{
 		session.setAttribute("list", services.caller(query_id,disp_name));
 		model.setViewName("reportgen");
 		return model;
+		}
+		return null;
+	}
+	@RequestMapping(value="paramquery.html*")
+	public ModelAndView hellno(HttpServletRequest request)
+	{
+		HttpSession session=request.getSession();
+		String s=(String) session.getAttribute("query");
+		System.out.println(s+"beeeeeee");
+		List<String> l=querycount.querycounter(s);
+		List<String> answer=new ArrayList<String>();
+		for(int k=0;k<l.size();k++)
+		{
+			answer.add(request.getParameter(l.get(k)));
+		}
+		String qu=querycount.replacer(answer, s);
+		System.out.println(qu+"beeeeeeep");
+		ModelAndView model=new ModelAndView();
+		session.setAttribute("list", services.caller1(qu,(String)session.getAttribute("disp_name")));
+		model.setViewName("reportgen");
+		return model;
+		
 	}
 }
+
