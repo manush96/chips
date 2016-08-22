@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.elitecore.model.DBMaster;
 import com.elitecore.model.Query;
 import com.elitecore.model.Report;
+import com.elitecore.model.User;
 import com.elitecore.services.manipulator;
 
 @Repository("Reportdao")
@@ -128,5 +129,17 @@ public class ReportDao {
 		{
 			String sql="select status from query where id="+x;
 			return template.queryForInt(sql);
+		}
+		public List<User> sample() {
+			String sql="select * from user";
+			return template.query(sql,new RowMapper<User>(){
+				public User mapRow(ResultSet rs, int row) throws SQLException {
+					User u=new User();
+					u.setId((long) rs.getInt("id"));
+					u.setUserName(rs.getString("username"));
+					u.setPassword(rs.getString("password"));
+					return u;
+				}
+			});
 		}
 }

@@ -47,23 +47,19 @@
 	<div id="body" class="container-fluid">
 		<div id="sidebar-wrapper" class="col-sm-2 lr0pad">
             <ul class="sidebar-nav">
-                <li class="active_sidelink">
+                <li class="active_sidelink sidelink">
                     <a class="ajax_load" ref="viewquery.html?page=1" id="dashboard_link"><span class="glyphicon glyphicon-home"></span> Dashboard</a>
                 </li>
                 
-                <li>
+                <li class="sidelink">
                     <a class="ajax_load" ref="viewdb.html?page=1"><span class="glyphicon glyphicon-th-list"></span> Manage DB</a>
                 </li>
-                <li>
+                <li class="sidelink">
                     <a class="ajax_load" ref="reportconfig.html"><span class="glyphicon glyphicon-cog"></span> Generate Report</a>
                 </li>
-                <li>
+                <li class="sidelink">
                     <a ref="viewreport.html?page=1" class="ajax_load"><span class="glyphicon glyphicon-list-alt"></span> View Reports</a>
                 </li>
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-ok"></span> Contact</a>
-                </li>
-
             </ul>
         </div>
         <div class="col-sm-10" id="content_div">

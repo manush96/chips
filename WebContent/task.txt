@@ -12,6 +12,6 @@ pagination nathi thtu hji b "DB ni grid ma...Report ni grid ma... and REPort key
 
 #dynamic value input kravvani baki hji...
 
-#filter for stopping dirty queries...
+#filter for stopping dirty queries...//function to check whether query is dirty or not is created just use to trigger a modal--manush
 
 #

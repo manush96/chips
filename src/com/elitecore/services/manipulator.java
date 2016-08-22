@@ -1,6 +1,5 @@
 package com.elitecore.services;
 
-import org.springframework.util.StringUtils;
 
 public class manipulator {
 public static String convsql(String s1,String s2)
@@ -51,4 +50,18 @@ public static String convsql(String s1,String s2)
 	return s1.replaceFirst(ms, s3);
 	
 }
+public static Boolean isdirty(String s)
+{
+	int x=s.indexOf(" ");
+	String str=s.substring(0, x-1);
+	str.toLowerCase();
+	if(str.equals("select"))
+	{
+		return true;//regular query
+	}
+	else{
+		return false;//dirty query
+	}
+}
+
 }

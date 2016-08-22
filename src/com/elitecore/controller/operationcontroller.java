@@ -39,16 +39,20 @@ queryservices services;
 @Autowired
 	public operationcontroller(userservices userService) {
 		this.userService = userService;
-//		this.queryservices=queryservices;
-//	
 	}
-@RequestMapping(value="/hello.html")
-public ModelAndView hello()
-{
-	return new ModelAndView("form","userdto",new userdto());
-}
 
+	@RequestMapping(value="/hello.html")
+	public ModelAndView hello()
+	{
+		return new ModelAndView("form","userdto",new userdto());
+	}
 	
+	@RequestMapping(value="/set_url.html", method = RequestMethod.GET)
+	public ModelAndView setsession(@RequestParam("url") String url, HttpSession session)
+	{
+		session.setAttribute("url",url);
+		return new ModelAndView("form","userdto",new userdto());
+	}
 	
 	@RequestMapping(value="/save.html", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute userdto  userdto,BindingResult result) throws Exception 
@@ -150,11 +154,5 @@ public ModelAndView hello()
 	{
 		session.invalidate();
 		return "redirect:hello.html";
-	}
-
-	@RequestMapping(value="/setsession.html")
-	public void setsession(@RequestParam("url") String url, HttpSession session)
-	{
-		session.setAttribute("url",url);
 	}
 }

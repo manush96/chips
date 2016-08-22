@@ -1,6 +1,9 @@
 package com.elitecore.controller;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +23,13 @@ import com.elitecore.dto.querydto;
 import com.elitecore.model.DBMaster;
 import com.elitecore.model.Query;
 import com.elitecore.model.Report;
+import com.elitecore.model.User;
 import com.elitecore.services.DBservices;
 import com.elitecore.services.Reportservices;
 import com.elitecore.services.querycount;
 import com.elitecore.services.queryservices;
 import com.elitecore.services.transfer;
-
+import jxl.*;
 @Controller
 
 public class reportcontroller {
@@ -168,8 +172,23 @@ public class reportcontroller {
 		ModelAndView model=new ModelAndView();
 		session.setAttribute("list", services.caller1(qu,(String)session.getAttribute("disp_name")));
 		model.setViewName("reportgen");
-		return model;
-		
+		return model;	
 	}
+	
+	/*@RequestMapping(value="save_as_excel.html*")
+	public ModelAndView save_excel(HttpServletRequest request)
+	{
+		ModelAndView model=new ModelAndView();
+		
+		try(OutputStream os1 = new FileOutputStream("target/simple_export_output1.xls"))
+		{
+	        List<User> user = services.sample();
+	        List<String> headers = Arrays.asList("Id", "Username", "Password");
+	        SimpleExporter exporter = new SimpleExporter();
+	        exporter.gridExport(headers, user, "Idddd, Userrrnamee, pword", os1);
+		}
+		
+		return model;
+	}*/
 }
 
