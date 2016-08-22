@@ -35,11 +35,12 @@ $(document).ready(function()
 {	
 	$(document).on("click",".ajax_load",function(e)
 	{
+		var set_ses = !($(this).hasClass("set_page_id"));
 		e.preventDefault();
 		url = $(this).attr('ref');
 		if(url == "" || url == undefined || url == null)
 			return;
-		
+			
 		$.ajax
 		({
 			type: "GET",
@@ -52,16 +53,19 @@ $(document).ready(function()
 				{
 					allowClear: true
 				});
-				$.ajax
-				({
-					type: "GET",
-					url: "set_url.html",
-					data: { url: url },
-					success: function(response)
-					{
-						$("#session_url").text(url);
-					}
-				});
+				if(set_ses)
+				{
+					$.ajax
+					({
+						type: "GET",
+						url: "set_url.html",
+						data: { url: url },
+						success: function(response)
+						{
+							$("#session_url").text(url);
+						}
+					});
+				}
 			}
 		});
 	});

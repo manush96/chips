@@ -113,10 +113,10 @@ public class querycontroller {
 	
 	@RequestMapping(value="/EditQuery.html")
 	public String Editquery(@ModelAttribute querydto querydto)
-	{
+	{	
 		Query query=transfer.querytrans(querydto);
 		List<queryin> list=transfer.queryintrans(querydto);
-
+		
 		int id = querydto.getId();
 		try
 		{

@@ -96,6 +96,7 @@ public class querydao {
 	public int editUser(Query query) {
 		String sql = "UPDATE `query` SET `description`='" + query.getDescription() + "',`query`='" + query.getQuery()
 				+ "' WHERE `id`='" + query.getId() + "'";
+		System.out.println(sql);
 		return template.update(sql);
 
 	}
@@ -155,6 +156,7 @@ public class querydao {
 			System.out.println(sql);
 			List<queryin> lq = get_queryin_params(sql);
 			myJson = new Gson().toJson(lq);
+			System.out.println(sql);
 			params.put(id,myJson);
 		}
 		return params;
@@ -165,6 +167,7 @@ public class querydao {
 			public queryin mapRow(ResultSet rs, int row) throws SQLException {
 				
 				queryin e = new queryin();
+				e.setId(rs.getInt("id"));
 				e.setParam_name(rs.getString("param_name"));
 				e.setParam_type(rs.getString("param_type"));
 				return e;
@@ -175,15 +178,16 @@ public class querydao {
 	public void updateparamquery(List<queryin> list, int id) {
 		
 		System.out.println("Start print");
+		int p_id;
 		for (int i = 0; i < list.size(); i++) {
 
 			queryin q = list.get(i);
 			q.setQuery_id(id);
-		
+			p_id = q.getId();
 			String sql = "UPDATE `queryin` SET `param_name`='" + q.getParam_name() + "',`param_type`='" + q.getParam_type()
-					+ "' WHERE `id`='" + id + "'";
+					+ "' WHERE `id`='" + p_id + "'";
 			System.out.println(sql);
-			 template.update(sql);
+			template.update(sql);
 
 		}
 		System.out.println("End print");
