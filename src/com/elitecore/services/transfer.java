@@ -26,6 +26,7 @@ public static Query querytrans(querydto q)
 {
 
     Query query=new Query();
+    query.setId(q.getId());
 	query.setName(q.getName());
 	query.setDescription(q.getDescription());
 	query.setQuery(q.getQuery());
@@ -40,16 +41,14 @@ public static List<queryin> queryintrans(querydto q3)
 	int i=q3.getStatus();
 	String[] s1=q3.getParam_name();
 	String[] s2=q3.getParam_type();
-	System.out.println("Status: " + i);
+	int[] p_id = q3.getParam_id();
 	for(int j=0;j<i;j++)
 	{
-		System.out.println("halellujah");
 		queryin q2=new queryin();
+		q2.setId(p_id[j]);
 		q2.setParam_name(s1[j]);
 		q2.setParam_type(s2[j]);
 		q1.add(q2);
-		System.out.println("s1[j]" + s1[j]);
-		System.out.println("s2[j]" + s2[j]);
 	}
 	return q1;
 }
