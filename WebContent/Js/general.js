@@ -126,7 +126,23 @@ $(document).ready(function()
 			$("#edit_query_modal").find(".append_div").find(".my_param_clone").removeAttr("id");
 			$("#edit_query_modal").find(".append_div").find(".my_param_clone").show();	
 		});
-	});		
+	});
+	
+	$(document).on("click",".edit_report",function()
+			{
+				id = $(this).attr('rel');
+				name = $('div[data-id="'+id+'"]').find(".name_text").text();
+				query = $('div[data-id="'+id+'"]').find(".query_text").text();
+				desc = $('div[data-id="'+id+'"]').find(".description_text").text();
+				no_of_var = $('div[data-id="'+id+'"]').find(".no_of_var_text").text();
+				status = $(this).attr("data-status");
+				
+				$("#edit_query_modal").find("#name").val(name);
+				$("#edit_query_modal").find("#query").val(query);
+				$("#edit_query_modal").find("#pword").val(desc);
+				$("#edit_query_modal").find("#id").val(id);
+				$("#edit_query_modal").find("#status").val(status);
+			});
 	$(document).on("click","#edit_query_submit",function(e)
 	{
 		$("#param_clone").remove();

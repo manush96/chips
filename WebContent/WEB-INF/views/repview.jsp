@@ -71,7 +71,7 @@
 	       				<span class="description_text">${report.display_name}</span>
 	       			</div>
 	       			<div class="col-sm-2 lr0pad">
-        				<button class="btn btn-primary edit_report_row" title="Edit" data-toggle="modal" data-target="#edit_report_modal" rel="${report.id}">
+        				<button class="btn btn-primary edit_report" title="Edit" data-toggle="modal" data-target="" rel="${report.id}">
         					<span class="glyphicon glyphicon-pencil"></span>
         				</button>
         				<button class="btn btn-danger remove_report_row" title="Delete" rel="${report.id}">

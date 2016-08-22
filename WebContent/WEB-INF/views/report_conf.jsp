@@ -7,7 +7,7 @@
 
 <div class="col-sm-offset-1 col-sm-10 lr0pad" id="wizard_div">
 	<div class="col-sm-12 report_div" id="report_div_1">
-		<form:form modelAttribute="Reportdto" action="" class="form-horizontal" role="form" method="POST">
+		<form:form id="edit_report" modelAttribute="Reportdto" action="" class="form-horizontal" role="form" method="POST">
 				<div class="col-sm-offset-1 col-sm-8">
 					<div class="form-group">
 				    	<form:input path="report_name" type="text" class="form-control input-lg tip_danger_lg" id="report_name" name="report_name" placeholder="Report Name" required="true" title=""/>
