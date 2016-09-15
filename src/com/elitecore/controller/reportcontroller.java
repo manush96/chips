@@ -1,14 +1,21 @@
 package com.elitecore.controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,9 +33,13 @@ import com.elitecore.model.Report;
 import com.elitecore.model.User;
 import com.elitecore.services.DBservices;
 import com.elitecore.services.Reportservices;
+import com.elitecore.services.itext;
 import com.elitecore.services.querycount;
 import com.elitecore.services.queryservices;
 import com.elitecore.services.transfer;
+import com.ibm.icu.util.Calendar;
+import com.itextpdf.text.DocumentException;
+
 import jxl.*;
 @Controller
 
@@ -60,8 +71,40 @@ public class reportcontroller {
 		
 		return model;
 	}
+	@RequestMapping(value="convertor.html")
+	public String convertor(HttpServletRequest request) throws Exception
+	{		
+		String url=request.getParameter("html_val");
+		
+		String removestring="class=\"table table-bordered table-striped\"";
+		String removestring2="class=\"bg-primary\"";
+		String borderstring=" border=\"1\" ";
+		System.out.println(removestring+"  "+removestring2);
+		
+		String modified=url.replaceAll(removestring, borderstring);
+		String Finalized=modified.replaceAll(removestring2, " ");
+		
+		System.out.println("URL HERE"+Finalized);
+		File input = new File("C:/Vatsal/EliteCoreGITProject/WebContent/page.html");
+		FileWriter w=new FileWriter(input.getAbsoluteFile());
+		BufferedWriter bw=new BufferedWriter(w);
+		
+		String HtmlString="<html><head></head><body>"+Finalized+"</body></html>";
+		System.out.println(HtmlString);
+		bw.write(HtmlString);
+		bw.close();
+		
+		//creating unique name everytime for the pdf documentation name
+		String fileName = new SimpleDateFormat("dd_MM_yyyy_hh:mm'.pdf'").format(new java.util.Date());
 	
+		System.out.println("filename  "+fileName);
+		
+		
+		itext.createPdf("C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/Report_"+fileName, "C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/page.html");
+		return "redirect:profile.html";
 	
+			
+	}
 	@RequestMapping(value="/viewreport.html*")
 	public ModelAndView getPage(
 	@RequestParam(value="page", required=false) int pageid, @RequestParam(value="key", required=false, defaultValue="") String key, HttpSession session)
@@ -128,32 +171,45 @@ public class reportcontroller {
 	public ModelAndView execution(@RequestParam(value = "query_id", required = false) int query_id,
 								@RequestParam(value="disp_name",required= false)String disp_name, HttpSession session)
 	{
-		ModelAndView model=new ModelAndView();
-		int x=services.getparam(query_id);
-		if(x>0)
-		{
-			List<Query> list=services.getbyid(query_id);
-			if(list.size()==1)
+			try{
+			System.out.println("ReportGen:1");
+			ModelAndView model=new ModelAndView();
+			int x=services.getparam(query_id);
+			System.out.println("ReportGen:2");
+			if(x>0)
 			{
-				String query=list.get(0).getQuery();
-				System.out.println(query+"that is");
-				List<String> l=querycount.querycounter(query);
-				session.setAttribute("disp_name", disp_name);
-				ModelAndView model1=new ModelAndView();
-				model1.addObject("list",l);
-//				model1.addObject("query",query);
-				session.setAttribute("query", query);
-				model1.setViewName("paramwiz");
-				return model1;
+				List<Query> list=services.getbyid(query_id);
+				if(list.size()==1)
+				{
+					System.out.println("ReportGen:3");
+					String query=list.get(0).getQuery();
+					System.out.println(query+"that is");
+					List<String> l=querycount.querycounter(query);
+					System.out.println("ReportGen:4");
+					session.setAttribute("disp_name", disp_name);
+					ModelAndView model1=new ModelAndView();
+					model1.addObject("list",l);
+	//				model1.addObject("query",query);
+					session.setAttribute("query", query);
+					model1.setViewName("paramwiz");
+					System.out.println("ReportGen:5");
+					return model1;
+					
+				}
+				
 			}
+			else{
 			
+			session.setAttribute("list", services.caller(query_id,disp_name));
+			model.setViewName("reportgen");
+			return model;
+			}
+			return null;
 		}
-		else{
-		session.setAttribute("list", services.caller(query_id,disp_name));
-		model.setViewName("reportgen");
-		return model;
+		catch(Exception e)
+		{
+			return new ModelAndView("error_report");
 		}
-		return null;
 	}
 	@RequestMapping(value="paramquery.html*")
 	public ModelAndView hellno(HttpServletRequest request)
