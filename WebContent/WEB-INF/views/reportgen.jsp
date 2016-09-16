@@ -79,6 +79,11 @@
 				<input type="submit" id="abc" class="btn btn-danger" value="Create PDF"/>
 				
 				</form>
+				<a href="mailto.html">
+				<button class="btn btn-success">
+						<span class="glyphicon glyphicon-list-alt"></span> Send mail
+					</button>
+				</a>
 				<a ref="save_as_excel.html">
 					<button class="btn btn-success" id="save_as_excel">
 						<span class="glyphicon glyphicon-list-alt"></span> Save as Excel

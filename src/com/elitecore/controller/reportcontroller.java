@@ -11,6 +11,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -85,7 +100,7 @@ public class reportcontroller {
 		String Finalized=modified.replaceAll(removestring2, " ");
 		
 		System.out.println("URL HERE"+Finalized);
-		File input = new File("C:/Vatsal/EliteCoreGITProject/WebContent/page.html");
+		File input = new File("D:/elitecore/elitecore/WebContent/Report_PDF_Storage/page.html");
 		FileWriter w=new FileWriter(input.getAbsoluteFile());
 		BufferedWriter bw=new BufferedWriter(w);
 		
@@ -95,15 +110,75 @@ public class reportcontroller {
 		bw.close();
 		
 		//creating unique name everytime for the pdf documentation name
-		String fileName = new SimpleDateFormat("dd_MM_yyyy_hh:mm'.pdf'").format(new java.util.Date());
+		String fileName = new SimpleDateFormat("dd_MM_yyyy_hh_mm'.pdf'").format(new java.util.Date());
 	
 		System.out.println("filename  "+fileName);
 		
 		
-		itext.createPdf("C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/Report_"+fileName, "C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/page.html");
-		return "redirect:profile.html";
+		itext.createPdf("D:/elitecore/elitecore/WebContent/Report_PDF_Storage/Report_"+fileName, "D:/elitecore/elitecore/WebContent/Report_PDF_Storage/page.html");
+		String referer = request.getHeader("Referer");
+	    return "redirect:"+ referer;
 	
 			
+	}
+	
+	@RequestMapping(value="mailto.html")
+	public String mailer(HttpServletRequest request)
+	{
+	    final String username = "aprojects66@gmail.com";
+	    final String password = "blackbeard123";
+	    Properties props = new Properties();
+	    props.setProperty("mail.transport.protocol", "smtp");
+	    props.put("mail.smtp.starttls.enable", "true");
+	    props.put("mail.smtp.auth", "true");
+	    props.put("mail.smtp.host", "smtp.gmail.com");
+	    props.put("mail.smtp.port", "587");
+
+	    Session session = Session.getInstance(props,
+	            new javax.mail.Authenticator() {
+	                protected PasswordAuthentication getPasswordAuthentication() {
+	                    return new PasswordAuthentication(username, password);
+	                }
+	            });
+
+	    try {
+
+	        Message message = new MimeMessage(session);
+	        message.setFrom(new InternetAddress("aprojects66@gmail.com"));
+	        message.setRecipients(Message.RecipientType.TO,
+	                InternetAddress.parse("manush96@gmail.com"));
+	        message.setSubject("Your report");
+	        message.setText("PFA");
+	        
+	        MimeBodyPart messageBodyPart = new MimeBodyPart();
+
+	        Multipart multipart = new MimeMultipart();
+
+	        messageBodyPart = new MimeBodyPart();
+
+			String file = new SimpleDateFormat("dd_MM_yyyy_hh_mm'.pdf'").format(new java.util.Date());
+			file="D:/elitecore/elitecore/WebContent/Report_PDF_Storage/"+"Report_"+file;
+			System.out.println("filename  "+file);
+		        DataSource source = new FileDataSource(file);
+	        messageBodyPart.setDataHandler(new DataHandler(source));
+	        messageBodyPart.setFileName("attatchment");
+	        multipart.addBodyPart(messageBodyPart);
+
+	        message.setContent(multipart);
+
+	        System.out.println("Sending");
+
+	        Transport.send(message);
+
+	        System.out.println("Done");
+
+	    } catch (MessagingException e) {
+	        e.printStackTrace();
+	    }
+	    String referer = request.getHeader("Referer");
+	    return "redirect:"+ referer;
+	  
+
 	}
 	@RequestMapping(value="/viewreport.html*")
 	public ModelAndView getPage(
