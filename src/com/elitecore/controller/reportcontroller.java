@@ -125,6 +125,35 @@ public class reportcontroller {
 	@RequestMapping(value="mailto.html")
 	public String mailer(HttpServletRequest request)
 	{
+		String url=request.getParameter("html_val");
+		
+		String removestring="class=\"table table-bordered table-striped\"";
+		String removestring2="class=\"bg-primary\"";
+		String borderstring=" border=\"1\" ";
+		System.out.println(removestring+"  "+removestring2);
+		
+		String modified=url.replaceAll(removestring, borderstring);
+		String Finalized=modified.replaceAll(removestring2, " ");
+		
+		System.out.println("URL HERE"+Finalized);
+		File input = new File("D:/elitecore/elitecore/WebContent/Report_PDF_Storage/page.html");
+		FileWriter w=new FileWriter(input.getAbsoluteFile());
+		BufferedWriter bw=new BufferedWriter(w);
+		
+		String HtmlString="<html><head></head><body>"+Finalized+"</body></html>";
+		System.out.println(HtmlString);
+		bw.write(HtmlString);
+		bw.close();
+		
+		//creating unique name everytime for the pdf documentation name
+		String fileName = new SimpleDateFormat("dd_MM_yyyy_hh_mm'.pdf'").format(new java.util.Date());
+	
+		System.out.println("filename  "+fileName);
+		
+		
+		itext.createPdf("D:/elitecore/elitecore/WebContent/Report_PDF_Storage/Report_"+fileName, "D:/elitecore/elitecore/WebContent/Report_PDF_Storage/page.html");
+		
+
 	    final String username = "aprojects66@gmail.com";
 	    final String password = "blackbeard123";
 	    Properties props = new Properties();
@@ -157,11 +186,13 @@ public class reportcontroller {
 	        messageBodyPart = new MimeBodyPart();
 
 			String file = new SimpleDateFormat("dd_MM_yyyy_hh_mm'.pdf'").format(new java.util.Date());
-			file="D:/elitecore/elitecore/WebContent/Report_PDF_Storage/"+"Report_"+file;
+			
+			file="D:/elitecore/elitecore/WebContent/Report_PDF_Storage/Report_"+fileName;
+			
 			System.out.println("filename  "+file);
 		        DataSource source = new FileDataSource(file);
 	        messageBodyPart.setDataHandler(new DataHandler(source));
-	        messageBodyPart.setFileName("attatchment");
+	        messageBodyPart.setFileName("attatchment.pdf");
 	        multipart.addBodyPart(messageBodyPart);
 
 	        message.setContent(multipart);
