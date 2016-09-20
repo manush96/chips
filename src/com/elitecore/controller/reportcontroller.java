@@ -41,6 +41,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.elitecore.dto.DBMasterDto;
 import com.elitecore.dto.Reportdto;
+import com.elitecore.dto.maildto;
 import com.elitecore.dto.querydto;
 import com.elitecore.model.DBMaster;
 import com.elitecore.model.Query;
@@ -123,9 +124,11 @@ public class reportcontroller {
 	}
 	
 	@RequestMapping(value="mailto.html")
-	public String mailer(HttpServletRequest request)
+	public String mailer(HttpServletRequest request) throws IOException, DocumentException
 	{
-		String url=request.getParameter("html_val");
+		String url=request.getParameter("html_val_mail");
+		
+		System.out.println("TRIGGER"+url);
 		
 		String removestring="class=\"table table-bordered table-striped\"";
 		String removestring2="class=\"bg-primary\"";
@@ -175,7 +178,7 @@ public class reportcontroller {
 	        Message message = new MimeMessage(session);
 	        message.setFrom(new InternetAddress("aprojects66@gmail.com"));
 	        message.setRecipients(Message.RecipientType.TO,
-	                InternetAddress.parse("manush96@gmail.com"));
+	                InternetAddress.parse(request.getParameter("mailid")));
 	        message.setSubject("Your report");
 	        message.setText("PFA");
 	        
@@ -307,6 +310,7 @@ public class reportcontroller {
 			else{
 			
 			session.setAttribute("list", services.caller(query_id,disp_name));
+			model.addObject("maildto",new maildto());
 			model.setViewName("reportgen");
 			return model;
 			}

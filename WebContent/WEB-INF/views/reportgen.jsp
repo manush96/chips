@@ -1,5 +1,8 @@
-<%@page import="java.util.*" import="com.elitecore.services.*" import="java.io.*" import="org.jsoup.Jsoup"%>
+<%@page import="java.util.*" import="com.elitecore.services.*" import="java.io.*" import="org.jsoup.Jsoup" %>
 
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="Css/bootstrap.css"/> 
@@ -9,7 +12,9 @@
  	<script>
  	$(document).ready(function()
 	{
-		$("#html_val").val($("#myDiv").html());
+		$("#html_val_pdf").val($("#myDiv").html());
+		$("#html_val_mail").val($("#myDiv").html());
+		$("#html_val_mail").val($("#myDiv").html());
 		//$("#html_val").val().removeClass().removeAttr("id");
 		
 	});
@@ -75,20 +80,69 @@
 			}
 			String s=str.substring(0,str.length()-1);  %>
 			<form method="post" action="convertor.html">
-				<input type="hidden" name="html_val" id="html_val"/>
+				<input type="hidden" name="html_val_pdf" id="html_val_pdf"/>
 				<input type="submit" id="abc" class="btn btn-danger" value="Create PDF"/>
 				
-				</form>
-				<a href="mailto.html">
-				<button class="btn btn-success">
-						<span class="glyphicon glyphicon-list-alt"></span> Send mail
+			</form>
+				
+					<button class="btn btn-primary edit_db_row" title="Edit"
+						data-toggle="modal" data-target="#edit_db_modal">
+						Send mail
 					</button>
-				</a>
+				<br/>
 				<a ref="save_as_excel.html">
 					<button class="btn btn-success" id="save_as_excel">
 						<span class="glyphicon glyphicon-list-alt"></span> Save as Excel
 					</button>
 				</a>
+			</div>
+		</div>
+	</div>
+	
+	<div id="edit_db_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div id="head" class="col-sm-6 lr0pad">
+						<h2>
+							<span class="glyphicon glyphicon-list-alt"></span> Send mail
+						</h2>
+						<br />
+					</div>
+				</div>
+				<div class="modal-body">
+					<form  action="mailto.html"
+						class="form-horizontal" role="form" method="POST">
+						<div class="form-group">
+							<div class="input-group col-sm-11">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-phone"></i></span>
+								<input  type="text" name="mailid"
+									class="form-control input-lg tip_danger_lg"
+									placeholder="Enter mail" />
+							</div>
+								
+						</div>
+						<div class="form-group">
+							<div class="input-group col-sm-11">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-phone"></i></span>
+								<input type="text" name="name"
+									class="form-control input-lg tip_danger_lg"
+									placeholder="Enter filename" />
+							</div>
+				<input type="hidden" name="html_val_mail" id="html_val_mail"/>
+				
+						<button type="submit" id="submit" class="btn btn-success submit">
+									<span class="glyphicon glyphicon-plus"></span>send mail
+								</button>
+						</div>					
+					</form>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -130,5 +184,6 @@
 		});
 	});
 </script>
+
 </body>
 </html>
