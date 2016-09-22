@@ -1,13 +1,20 @@
 package com.elitecore.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,6 +39,34 @@ public class ReportDao {
 		
 		@Autowired
 		JdbcTemplate template;
+		
+		JdbcTemplate template1;
+		
+		int db_id;
+		
+		String user="";
+		String password="";
+		@SuppressWarnings("null")
+		public void setDataSource() {
+//			 	
+//			 	Properties dbPropertises=null;
+//			 	dbPropertises.setProperty("driver","com.mysql.jdbc.Driver");
+//			 	dbPropertises.setProperty("jdbcUrl","jdbc:mysql://localhost:3306/de");
+//			 	dbPropertises.setProperty("user",user);
+//			 	dbPropertises.setProperty("password",password);
+//			 	dbPropertises.setProperty("acquireIncrement","5");
+//			 	dbPropertises.setProperty("idleConnectionTestPeriod","60");
+//			 	dbPropertises.setProperty("maxPoolSize","10");
+//			 	dbPropertises.setProperty("maxStatements","50");
+//			 	dbPropertises.setProperty("minPoolSize","2");
+//			 	dataSource.setDbProperties(dbPropertises);
+				BasicDataSource datasource=new BasicDataSource();
+				datasource.setDriverClassName("com.mysql.jdbc.Driver");
+				datasource.setUsername(user);
+				datasource.setPassword(password);
+				datasource.setUrl("jdbc:mysql://localhost:3306/spring");
+		        template1 = new JdbcTemplate(datasource);
+		}
 		
 
 		public void saveReport(Report r) {
@@ -78,8 +113,16 @@ public class ReportDao {
 				}
 			});
 		}
-		public List<Map<String,Object>> runner(int id, String disp_name)
+		public List<Map<String,Object>> runner(int id, String disp_name, int db_id)
 		{
+			this.db_id=db_id;
+			coreJdbc(db_id);
+			DataSource dataSource=new DataSource();
+			setDataSource();
+			
+			//printing the username and password of database from which we will generate the report..
+			System.out.println("For particular Database...USERNAME= "+user+" and PASSWORD= "+password);
+			
 			String sql1="select query from query where id="+id;
 			String sql="";
 			List<Map<String,Object>> list=template.queryForList(sql1);
@@ -87,20 +130,62 @@ public class ReportDao {
 			for(int i=0;i<list.size();i++)
 			{
 				Map<String,Object> m=list.get(i);
+				System.out.println("Map "+m);
 				for(Map.Entry<String, Object> entry:m.entrySet())
 				{
 					sql=sql+(String)entry.getValue();
+					System.out.println("inner For"+sql);
 				}
 			}	
 			
-			String final_string=manipulator.convsql(sql, disp_name);			
-			return template.queryForList(final_string);
+			System.out.println("Final Query "+sql);
+			String final_string=manipulator.convsql(sql, disp_name);
+			System.out.println("Final String "+ final_string);
+			return template1.queryForList(final_string);
 		}
 
-		public List<Map<String,Object>> runner1(String query, String disp_name)
+		private void coreJdbc(int db_id2) {
+			
+			String driverstring="com.mysql.jdbc.Driver";
+			String connectionstring="jdbc:mysql://localhost:3306/spring?user=root";
+			
+			Scanner sc= new Scanner(System.in);
+			
+			try
+			{
+				Class.forName(driverstring);
+				
+				Connection con= DriverManager.getConnection(connectionstring);
+				
+				Statement st=con.createStatement();
+				
+							
+				String query="select username,password from db_master where id="+db_id2;
+				ResultSet rs= st.executeQuery(query);
+				
+				while(rs.next())
+				{
+					user=rs.getString("username");
+					password=rs.getString("password");
+				}
+				
+				rs.close();
+				st.close();
+				con.close();			
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+		}
+
+
+		public List<Map<String,Object>> runner1(String query, String disp_name, int db_id)
 		{
+			
 			String final_string=manipulator.convsql(query, disp_name);			
-			return template.queryForList(final_string);
+			return template1.queryForList(final_string);
 		}
 		public List<Report> getReportBykeyword(String keyword,int pageid,int total){
 			String sql = "select * from report where report_name LIKE '%" + keyword + "%' limit " + (pageid - 1) + "," + total;

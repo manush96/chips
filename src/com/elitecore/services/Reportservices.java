@@ -43,15 +43,15 @@ ReportDao dao;
 		dao.dltReport(id);
 	}
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	public List<Map<String,Object>> caller(int sql,String disp_name)
+	public List<Map<String,Object>> caller(int sql,String disp_name,int db_id)
 	{
-		return dao.runner(sql,disp_name);
+		return dao.runner(sql,disp_name,db_id);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	public List<Map<String,Object>> caller1(String qu,String disp_name)
+	public List<Map<String,Object>> caller1(String qu,String disp_name,int db_id)
 	{
-		return dao.runner1(qu,disp_name);
+		return dao.runner1(qu,disp_name,db_id);
 	}
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public List<Query> getbyid(int id)

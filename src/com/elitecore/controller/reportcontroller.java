@@ -276,17 +276,24 @@ public class reportcontroller {
 		services.Dltrep(id);
 		return new ModelAndView("grid", "Report", new Report());
 	}
+	
+	int db_id;
+	
 	@RequestMapping(value="reportgenerator.html*")
 	public ModelAndView execution(@RequestParam(value = "query_id", required = false) int query_id,
-								@RequestParam(value="disp_name",required= false)String disp_name, HttpSession session)
+								@RequestParam(value="disp_name",required= false)String disp_name,
+								@RequestParam(value="db_id",required= false) int db_id, HttpSession session)
 	{
 			try{
+				
+			this.db_id=db_id;	
 			System.out.println("ReportGen:1");
 			ModelAndView model=new ModelAndView();
 			int x=services.getparam(query_id);
 			System.out.println("ReportGen:2");
 			if(x>0)
 			{
+				System.out.println("ave?");
 				List<Query> list=services.getbyid(query_id);
 				if(list.size()==1)
 				{
@@ -309,7 +316,9 @@ public class reportcontroller {
 			}
 			else{
 			
-			session.setAttribute("list", services.caller(query_id,disp_name));
+				System.out.println("else ma ayu....");
+			session.setAttribute("list", services.caller(query_id,disp_name,db_id));
+			System.out.println("dao mathi successfully aai gyu....");
 			model.addObject("maildto",new maildto());
 			model.setViewName("reportgen");
 			return model;
@@ -318,9 +327,13 @@ public class reportcontroller {
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			return new ModelAndView("error_report");
 		}
 	}
+	
+	
+	
 	@RequestMapping(value="paramquery.html*")
 	public ModelAndView hellno(HttpServletRequest request)
 	{
@@ -336,7 +349,8 @@ public class reportcontroller {
 		String qu=querycount.replacer(answer, s);
 		System.out.println(qu+"beeeeeeep");
 		ModelAndView model=new ModelAndView();
-		session.setAttribute("list", services.caller1(qu,(String)session.getAttribute("disp_name")));
+		
+		session.setAttribute("list", services.caller1(qu,(String)session.getAttribute("disp_name"),db_id));
 		model.setViewName("reportgen");
 		return model;	
 	}
