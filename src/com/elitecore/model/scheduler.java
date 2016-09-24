@@ -21,7 +21,7 @@ private int id;
 @Column(name="job_name")
 private String job_name;
 @Column(name="report_id")
-private String report_id;
+private int report_id;
 @Column(name="start_time")
 private String start_time;
 public int getId() {
@@ -36,10 +36,10 @@ public String getJob_name() {
 public void setJob_name(String job_name) {
 	this.job_name = job_name;
 }
-public String getReport_id() {
+public int getReport_id() {
 	return report_id;
 }
-public void setReport_id(String report_id) {
+public void setReport_id(int report_id) {
 	this.report_id = report_id;
 }
 public String getStart_time() {

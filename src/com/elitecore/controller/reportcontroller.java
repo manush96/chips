@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -31,7 +32,16 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
+import org.quartz.Job;
+import org.quartz.JobDetail;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleTrigger;
+import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +49,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.elitecore.dao.schedulerdao;
 import com.elitecore.dto.DBMasterDto;
 import com.elitecore.dto.Reportdto;
 import com.elitecore.dto.maildto;
@@ -59,7 +70,7 @@ import com.itextpdf.text.DocumentException;
 import jxl.*;
 @Controller
 
-public class reportcontroller {
+public class reportcontroller implements Job {
 	@Autowired
 	Reportservices services;
 	
@@ -354,8 +365,64 @@ public class reportcontroller {
 		model.setViewName("reportgen");
 		return model;	
 	}
+	@Autowired
+	JdbcTemplate template;
+	@Override
+	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		java.util.Date d=new java.util.Date();	
+		int i=d.getHours();
+		int j=d.getMinutes();
+		String sql="select report_id from scheduler where start_time='"+i+":"+j+"'";
+		
+		System.out.println(sql);
+		int k=template.queryForInt(sql);
+		System.out.println(k);
+		String sql1="select query_id,db_id,display_name from report where id="+k;
+		
+		int query_id=0;
+		int db_id=0;
+		String display_name="";
+		
+		
+		List<Map<String,Object>> list=template.queryForList(sql);
+		for(int i1=0;i<list.size();i++)
+		{
+			Map<String,Object> m=list.get(i);
+			System.out.println("Map "+m);
+			int j1=1;
+			for(Map.Entry<String, Object> entry:m.entrySet())
+			{	
+				if(j1==1)
+				{
+					query_id=Integer.parseInt(entry.getValue().toString());
+					j++;
+				}
+				if(j==2)
+				{
+					db_id=Integer.parseInt(entry.getValue().toString());
+					j++;
+				}
+				if(j==3)
+				{
+					display_name=entry.getValue().toString();
+				}
+			}			
+		}
+		
+		System.out.println("inside job");
+		
+		String abc="reportgenerator.html?query_id="+query_id+"&disp_name="+display_name+"&db_id="+db_id;
+		redirector(abc);
+}
+
+public String redirector(String abc)
+{
+	return "redirect:"+abc;
+}
+	}
 	
-	/*@RequestMapping(value="save_as_excel.html*")
+	
+		/*@RequestMapping(value="save_as_excel.html*")
 	public ModelAndView save_excel(HttpServletRequest request)
 	{
 		ModelAndView model=new ModelAndView();
@@ -370,5 +437,8 @@ public class reportcontroller {
 		
 		return model;
 	}*/
-}
+	
+	
+	
+	
 

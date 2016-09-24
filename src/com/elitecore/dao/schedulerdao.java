@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Temporal;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletResponse;
 
 import org.quartz.Job;
 import org.quartz.JobDetail;
@@ -21,11 +23,13 @@ import org.quartz.impl.triggers.SimpleTriggerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.elitecore.controller.reportcontroller;
 import com.ibm.icu.util.Calendar;
 
 @Repository("schedulerdao")
-public class schedulerdao implements Job{
+public class schedulerdao{
 private EntityManager em;
 	
 	@PersistenceContext
@@ -36,12 +40,12 @@ private EntityManager em;
 
 	JdbcTemplate template;
 	@SuppressWarnings("deprecation")
-	public static void scheduler1() throws SchedulerException
-	{
+	public void scheduler1() throws SchedulerException
+	{		
 		System.out.println("scheduler");
 		String sql="select start_time,job_name from scheduler";
 		
-		List<Map<String,Object>> list=template.queryforList(sql);
+		List<Map<String,Object>> list=template.queryForList(sql);
 		for(int i=0;i<list.size();i++)
 		{
 			Map<String,Object> m=list.get(i);
@@ -53,46 +57,61 @@ private EntityManager em;
 			{	
 				if(j==1)
 				{
-				jobname=entry.getValue().toString();
+				start_time=entry.getValue().toString();
 				j++;
 			}
 				if(j==2)
 				{
-					start_time=entry.getValue().toString();
+					jobname=entry.getValue().toString();
 				}
 			}
 			JobDetail job = new JobDetail();
 	    	job.setName(jobname);
 	    	System.out.println(start_time);
 	    	
-	    	job.setJobClass(schedulerdao.class);
+	    	job.setJobClass(reportcontroller.class);
 	    	System.out.println(jobname);
 	    	//configure the scheduler time
 	    	SimpleTrigger trigger = new SimpleTrigger();
 	    	trigger.setName("dumb");
 	    	java.util.Calendar c=java.util.Calendar.getInstance();
-	    	Date d=new Date();
+	    	java.util.Date d=new java.util.Date();
 	    	String a=start_time.replace(":", "");
-	    	String hh=a.substring(0,1);
-	    	String mm=a.substring(2,3);
-	    	System.out.println(hh+":"+mm);
 	    	
-	    	int h=Integer.parseInt(hh);
-	    	int m1=Integer.parseInt(mm);
-	    	trigger.setStartTime(new Date(d.getYear(),d.getMonth(),d.getDate(),h,m1));
-	    	trigger.setRepeatCount(SimpleTriggerImpl.REPEAT_INDEFINITELY);
+	    	
+	    	int a1=Integer.parseInt(a);
+	    	System.out.println(a1);
+	    	
+	    	int h=a1/100;
+	    	int m1=a1%100;
+	    	System.out.println(a+"--- "+h+" : "+m1);
+	    	trigger.setStartTime(new java.util.Date(d.getYear(),d.getMonth(),d.getDate(),h,m1));
+
 	    	trigger.setRepeatInterval(24*60*60*1000);
 	    	//schedule it
-	    	Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-	    	scheduler.start();
-	    	scheduler.scheduleJob(job, trigger);
+	    	Scheduler scheduler = null;
+			try {
+				scheduler = new StdSchedulerFactory().getScheduler();
+			} catch (SchedulerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	try {
+				scheduler.start();
+			} catch (SchedulerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	try {
+				scheduler.scheduleJob(job, trigger);
+			} catch (SchedulerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
-		}
+
+		
+}
 	}
-	@Override
-	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-			
-			System.out.println("inside job");
-			
-	}
+	
 }

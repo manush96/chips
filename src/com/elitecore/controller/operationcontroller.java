@@ -38,20 +38,18 @@ private userservices userService;
 @Autowired
 queryservices services;
 @Autowired
+schedulerdao sch;
 	public operationcontroller(userservices userService) {
-		try {
-			schedulerdao.scheduler1();
-		} catch (SchedulerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		this.userService = userService;
+	}
+	public operationcontroller() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@RequestMapping(value="/hello.html")
 	public ModelAndView hello()
 	{
-		return new ModelAndView("form","userdto",new userdto());
+			return new ModelAndView("form","userdto",new userdto());
 	}
 	
 	@RequestMapping(value="/set_url.html", method = RequestMethod.GET)
@@ -143,6 +141,13 @@ queryservices services;
 	@RequestMapping(value="/profile.html")
 	public ModelAndView profile(HttpSession session) throws Exception
 	{
+		try {
+			sch.scheduler1();
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		
 		User user = (User) session.getAttribute("user");
 		if(user == null || user.equals(""))
