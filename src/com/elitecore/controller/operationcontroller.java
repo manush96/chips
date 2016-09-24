@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.elitecore.dao.querydao;
+import com.elitecore.dao.schedulerdao;
 import com.elitecore.dto.*;
 import com.elitecore.model.Query;
 import com.elitecore.model.SearchKeyWord;
@@ -33,11 +35,16 @@ public class operationcontroller {
 
 private userservices userService;
 //private queryservices queryservices;
-
 @Autowired
 queryservices services;
 @Autowired
 	public operationcontroller(userservices userService) {
+		try {
+			schedulerdao.scheduler1();
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.userService = userService;
 	}
 

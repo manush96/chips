@@ -22,9 +22,8 @@ private int id;
 private String job_name;
 @Column(name="report_id")
 private String report_id;
-@Temporal(TemporalType.TIMESTAMP)
 @Column(name="start_time")
-private Date start_time=new Date();
+private String start_time;
 public int getId() {
 	return id;
 }
@@ -43,10 +42,10 @@ public String getReport_id() {
 public void setReport_id(String report_id) {
 	this.report_id = report_id;
 }
-public Date getStart_time() {
+public String getStart_time() {
 	return start_time;
 }
-public void setStart_time(Date start_time) {
+public void setStart_time(String start_time) {
 	this.start_time = start_time;
 }
 
