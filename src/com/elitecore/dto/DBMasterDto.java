@@ -8,6 +8,13 @@ public class DBMasterDto {
 	private String Url;
 	private String username;
 	private String password;
+	private String connectionstring;
+	public String getConnectionstring() {
+		return connectionstring;
+	}
+	public void setConnectionstring(String connectionstring) {
+		this.connectionstring = connectionstring;
+	}
 	private String min_pool_size;
 	private String max_pool_size;
 	public int getId() {

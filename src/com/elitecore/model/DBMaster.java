@@ -21,6 +21,8 @@ public class DBMaster {
 	private String username;
 	@Column(name="password")
 	private String password;
+	@Column(name="connectionstring")
+	private String connectionstring;
 	@Column(name="url")
 	private String url;
 	@Column(name="max_pool_size")
@@ -74,6 +76,12 @@ public class DBMaster {
 	}
 	public void setMin_pool_size(String i) {
 		this.min_pool_size = i;
+	}
+	public String getConnectionstring() {
+		return connectionstring;
+	}
+	public void setConnectionstring(String connectionstring) {
+		this.connectionstring = connectionstring;
 	}
 	
 	

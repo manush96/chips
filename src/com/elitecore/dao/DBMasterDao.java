@@ -33,7 +33,7 @@ public class DBMasterDao {
 		}
 		
 		public int editDB(DBMaster dbm) {			
-			String sql="UPDATE `db_master` SET `name`='"+dbm.getName()+"', `description`='"+dbm.getDescription()+"',`url`='"+dbm.getUrl()+"',`username`='"+dbm.getUsername()+"',`password`='"+dbm.getPassword()+"',`min_pool_size`='"+dbm.getMin_pool_size()+"', `max_pool_size`='"+dbm.getMax_pool_size()+"' where `id`= '"+dbm.getId()+"'";	
+			String sql="UPDATE `db_master` SET `name`='"+dbm.getName()+"', `description`='"+dbm.getDescription()+"',`url`='"+dbm.getUrl()+"',`connectionstring`='"+dbm.getConnectionstring()+"',`username`='"+dbm.getUsername()+"',`password`='"+dbm.getPassword()+"',`min_pool_size`='"+dbm.getMin_pool_size()+"', `max_pool_size`='"+dbm.getMax_pool_size()+"' where `id`= '"+dbm.getId()+"'";	
 			return template.update(sql);
 		
 		}
@@ -62,6 +62,7 @@ public class DBMasterDao {
 					e.setName(rs.getString("name"));
 					e.setDescription(rs.getString("description"));
 					e.setUrl(rs.getString("url"));
+					e.setConnectionstring(rs.getString("connectionstring"));
 					e.setUsername(rs.getString("username"));
 					e.setPassword(rs.getString("password"));
 					e.setMax_pool_size(rs.getString("max_pool_size"));	
