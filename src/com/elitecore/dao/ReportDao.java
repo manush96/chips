@@ -44,8 +44,10 @@ public class ReportDao {
 		
 		int db_id;
 		
-		String user="";
+		String user="root";
 		String password="";
+		String classname="com.mysql.jdbc.Driver";
+		String url="jdbc:mysql://localhost:3306/spring";
 		@SuppressWarnings("null")
 		public void setDataSource() {
 //			 	
@@ -61,10 +63,10 @@ public class ReportDao {
 //			 	dbPropertises.setProperty("minPoolSize","2");
 //			 	dataSource.setDbProperties(dbPropertises);
 				BasicDataSource datasource=new BasicDataSource();
-				datasource.setDriverClassName("com.mysql.jdbc.Driver");
+				datasource.setDriverClassName(classname);
 				datasource.setUsername(user);
 				datasource.setPassword(password);
-				datasource.setUrl("jdbc:mysql://localhost:3306/spring");
+				datasource.setUrl(url);
 		        template1 = new JdbcTemplate(datasource);
 		}
 		
@@ -160,13 +162,15 @@ public class ReportDao {
 				Statement st=con.createStatement();
 				
 							
-				String query="select username,password from db_master where id="+db_id2;
+				String query="select * from db_master where id="+db_id2;
 				ResultSet rs= st.executeQuery(query);
 				
 				while(rs.next())
 				{
 					user=rs.getString("username");
 					password=rs.getString("password");
+					//classname =rs.getString("url");
+					//url= rs.getString("url");
 				}
 				
 				rs.close();

@@ -90,7 +90,7 @@ public class reportcontroller {
 	@RequestMapping(value="convertor.html")
 	public String convertor(HttpServletRequest request) throws Exception
 	{		
-		String url=request.getParameter("html_val");
+		String url=request.getParameter("html_val_pdf");
 		
 		String removestring="class=\"table table-bordered table-striped\"";
 		String removestring2="class=\"bg-primary\"";
@@ -101,7 +101,7 @@ public class reportcontroller {
 		String Finalized=modified.replaceAll(removestring2, " ");
 		
 		System.out.println("URL HERE"+Finalized);
-		File input = new File("D:/elitecore/elitecore/WebContent/Report_PDF_Storage/page.html");
+		File input = new File("C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/page.html");
 		FileWriter w=new FileWriter(input.getAbsoluteFile());
 		BufferedWriter bw=new BufferedWriter(w);
 		
@@ -116,7 +116,7 @@ public class reportcontroller {
 		System.out.println("filename  "+fileName);
 		
 		
-		itext.createPdf("D:/elitecore/elitecore/WebContent/Report_PDF_Storage/Report_"+fileName, "D:/elitecore/elitecore/WebContent/Report_PDF_Storage/page.html");
+		itext.createPdf("C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/Report_"+fileName, "C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/page.html");
 		String referer = request.getHeader("Referer");
 	    return "redirect:"+ referer;
 	
@@ -139,7 +139,7 @@ public class reportcontroller {
 		String Finalized=modified.replaceAll(removestring2, " ");
 		
 		System.out.println("URL HERE"+Finalized);
-		File input = new File("D:/elitecore/elitecore/WebContent/Report_PDF_Storage/page.html");
+		File input = new File("C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/page.html");
 		FileWriter w=new FileWriter(input.getAbsoluteFile());
 		BufferedWriter bw=new BufferedWriter(w);
 		
@@ -154,7 +154,7 @@ public class reportcontroller {
 		System.out.println("filename  "+fileName);
 		
 		
-		itext.createPdf("D:/elitecore/elitecore/WebContent/Report_PDF_Storage/Report_"+fileName, "D:/elitecore/elitecore/WebContent/Report_PDF_Storage/page.html");
+		itext.createPdf("C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/Report_"+fileName, "C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/page.html");
 		
 
 	    final String username = "aprojects66@gmail.com";
@@ -190,7 +190,7 @@ public class reportcontroller {
 
 			String file = new SimpleDateFormat("dd_MM_yyyy_hh_mm'.pdf'").format(new java.util.Date());
 			
-			file="D:/elitecore/elitecore/WebContent/Report_PDF_Storage/Report_"+fileName;
+			file="C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/Report_"+fileName;
 			
 			System.out.println("filename  "+file);
 		        DataSource source = new FileDataSource(file);
