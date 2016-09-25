@@ -22,7 +22,9 @@
  	</script>
 </head>
 <body>
-	<%	List<Map<String,Object>> list=(List<Map<String,Object>>)session.getAttribute("list");
+	<%	
+		String s1="",s2="";
+		List<Map<String,Object>> list=(List<Map<String,Object>>)session.getAttribute("list");
 		Map<String,Object> m=list.get(0);
 	%>
 	<div id="myDiv" class="col-sm-12" style="margin-top: 50px;">
@@ -41,6 +43,7 @@
 		</thead>
 		<tbody>
 			<% 
+			int j=0;
 			for(int i=0;i<list.size();i++)
 			{
 				m=list.get(i);
@@ -51,50 +54,80 @@
 					for(Map.Entry<String, Object> entry:m.entrySet())
 					{
 						%>
-						<td><%out.println(entry.getValue());%></td>
+						<td><% 
+							if(j%2==0)
+								s1 += "'"+entry.getValue().toString()+"',";
+							else
+								s2 += entry.getValue().toString()+",";
+							j++;
+							out.println(entry.getValue());%></td>
 						<%
 					}%>
 				</tr>
 				<%
 			}
+			s1=s1.substring(0, s1.length()-1);
+			s2=s2.substring(0, s2.length()-1);
 			%>
 		</tbody>
 		</table>
 	</div>
 	<div class="clearfix"></div><br/>
 	<div class="col-sm-12">
-		<div class="pull-right">
-			<div class="form-group">
-			<% String str=request.getRequestURL()+"?";
-			Enumeration<String> paramNames = request.getParameterNames();
-			while (paramNames.hasMoreElements())
-			{
-			    String paramName = paramNames.nextElement();
-			    String[] paramValues = request.getParameterValues(paramName);
-			    for (int i = 0; i < paramValues.length; i++) 
-			    {
-			        String paramValue = paramValues[i];
-			        str=str + paramName + "=" + paramValue;
-			    }
-			    str=str+"&";
-			}
-			String s=str.substring(0,str.length()-1);  %>
-			<form method="post" action="convertor.html">
-				<input type="hidden" name="html_val_pdf" id="html_val_pdf"/>
-				<input type="submit" id="abc" class="btn btn-danger" value="Create PDF"/>
-				
+		<div class="col-sm-8">
+			<form action="view_graph.html" method="POST">
+				<div class="col-sm-8">
+					<select class="form-control" name="graph_type" style="cursor: pointer">
+						<option value="pie" selected>Pie Chart</option>
+						<option value="bar">Bar Chart</option>
+						<option value="line">Line Chart</option>
+						<option value="radar">Radar Chart</option>
+						<option value="doughnut">Doughnut Chart</option>
+						<option value="polarArea">Polar Area Chart</option>
+					</select>
+				</div>
+				<input type="hidden" name="x" value="<%= s1%>" />
+				<input type="hidden" name="y" value="<%= s2%>" />
+				<button class="btn btn-info">
+					View Graph
+				</button>
 			</form>
-				
+		</div>
+		<div class="col-sm-4">
+			<div class="">
+				<% String str=request.getRequestURL()+"?";
+				Enumeration<String> paramNames = request.getParameterNames();
+				while (paramNames.hasMoreElements())
+				{
+				    String paramName = paramNames.nextElement();
+				    String[] paramValues = request.getParameterValues(paramName);
+				    for (int i = 0; i < paramValues.length; i++) 
+				    {
+				        String paramValue = paramValues[i];
+				        str=str + paramName + "=" + paramValue;
+				    }
+				    str=str+"&";
+				}
+				String s=str.substring(0,str.length()-1);  %>
+				<div class="col-sm-4">
+					<form method="post" action="convertor.html">
+						<input type="hidden" name="html_val_pdf" id="html_val_pdf"/>
+						<input type="submit" id="abc" class="btn btn-danger" value="Create PDF"/>
+					</form>
+				</div>
+				<div class="col-sm-4">
 					<button class="btn btn-primary edit_db_row" title="Edit"
 						data-toggle="modal" data-target="#edit_db_modal">
 						Send mail
 					</button>
-				<br/>
-				<a ref="save_as_excel.html">
-					<button class="btn btn-success" id="save_as_excel">
-						<span class="glyphicon glyphicon-list-alt"></span> Save as Excel
-					</button>
-				</a>
+				</div>
+				<div class="col-sm-4">	
+					<a ref="save_as_excel.html">
+						<button class="btn btn-success" id="save_as_excel">
+							<span class="glyphicon glyphicon-list-alt"></span> Save as Excel
+						</button>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -107,12 +140,10 @@
 						<h2>
 							<span class="glyphicon glyphicon-list-alt"></span> Send mail
 						</h2>
-						<br />
 					</div>
 				</div>
-				<div class="modal-body">
-					<form  action="mailto.html"
-						class="form-horizontal" role="form" method="POST">
+				<div class="modal-body" style="padding-left: 30px">
+					<form  action="mailto.html" class="form-horizontal" role="form" method="POST">
 						<div class="form-group">
 							<div class="input-group col-sm-11">
 								<span class="input-group-addon"><i
@@ -121,7 +152,7 @@
 									class="form-control input-lg tip_danger_lg"
 									placeholder="Enter mail" />
 							</div>
-								
+							
 						</div>
 						<div class="form-group">
 							<div class="input-group col-sm-11">
@@ -131,12 +162,12 @@
 									class="form-control input-lg tip_danger_lg"
 									placeholder="Enter filename" />
 							</div>
-				<input type="hidden" name="html_val_mail" id="html_val_mail"/>
-				
+						</div>
+						
+						<input type="hidden" name="html_val_mail" id="html_val_mail"/>
 						<button type="submit" id="submit" class="btn btn-success submit">
-									<span class="glyphicon glyphicon-plus"></span>send mail
-								</button>
-						</div>					
+							<span class="glyphicon glyphicon-send"></span> Send mail
+						</button>
 					</form>
 				</div>
 				
