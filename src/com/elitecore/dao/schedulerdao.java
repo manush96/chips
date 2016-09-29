@@ -72,6 +72,7 @@ private EntityManager em;
 	    	job.setJobClass(reportcontroller.class);
 	    	System.out.println(jobname);
 	    	//configure the scheduler time
+	    	
 	    	SimpleTrigger trigger = new SimpleTrigger();
 	    	trigger.setName("dumb");
 	    	java.util.Calendar c=java.util.Calendar.getInstance();
@@ -80,38 +81,30 @@ private EntityManager em;
 	    	
 	    	
 	    	int a1=Integer.parseInt(a);
-	    	System.out.println(a1);
-	    	
+	    	System.out.println(a1);	    	
 	    	int h=a1/100;
 	    	int m1=a1%100;
+	    	
 	    	System.out.println(a+"--- "+h+" : "+m1);
+	    	
 	    	trigger.setStartTime(new java.util.Date(d.getYear(),d.getMonth(),d.getDate(),h,m1));
-
 	    	trigger.setRepeatInterval(24*60*60*1000);
+	    	
 	    	//schedule it
 	    	Scheduler scheduler = null;
-			try {
+			try 
+			{
 				scheduler = new StdSchedulerFactory().getScheduler();
-			} catch (SchedulerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    	try {
 				scheduler.start();
-			} catch (SchedulerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    	try {
 				scheduler.scheduleJob(job, trigger);
-			} catch (SchedulerException e) {
+			}
+			catch (Exception e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-
-		
-}
+	    			
+		}
 	}
 	
 }

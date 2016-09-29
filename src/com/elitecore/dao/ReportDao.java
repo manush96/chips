@@ -231,4 +231,19 @@ public class ReportDao {
 				}
 			});
 		}
+		
+		public Map<String,Object> getScheduled_reportid(int i,int j)
+		{
+			System.out.println("Inside Dao"+i+" "+j);
+			String sql="select report_id from scheduler where start_time='"+i+":"+j+"'";
+			
+			System.out.println(sql);
+			int k=template.queryForInt(sql);
+			Map<String,Object> k1=template.queryForMap(sql);
+			System.out.println("Result Map"+k1);
+			System.out.println();
+			System.out.println("Result int"+k);
+			return k1;
+			
+		}
 }

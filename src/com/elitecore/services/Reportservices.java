@@ -79,5 +79,12 @@ ReportDao dao;
 		// TODO Auto-generated method stub
 		return dao.sample();
 	}
+	public Map<String, Object> call_for_reportid(int i, int j) {
+		// TODO Auto-generated method stub
+		System.out.println("In the Services "+i+" "+j);
+		Map<String,Object> a=dao.getScheduled_reportid(i, j);
+		System.out.println("Back from servies..."+a);
+		return a;
+	}
 
 }
