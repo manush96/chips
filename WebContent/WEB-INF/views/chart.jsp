@@ -36,7 +36,7 @@
 					<% 
 					for(int p=0; p<i; p++)
 					{
-						out.println("colors["+(p%6)+"].");
+						out.println("colors["+(p%6)+"],");
 					}
 					%> 
 		            ],
