@@ -60,6 +60,9 @@
                 <li class="sidelink">
                     <a ref="viewreport.html?page=1" class="ajax_load"><span class="glyphicon glyphicon-list-alt"></span> View Reports</a>
                 </li>
+                <li class="sidelink">
+                    <a ref="scheduler.html" class="ajax_load"><span class="glyphicon glyphicon-time"></span> Schedule Report</a>
+                </li>
             </ul>
         </div>
         <div class="col-sm-10" id="content_div">

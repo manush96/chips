@@ -25,7 +25,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.elitecore.controller.reportcontroller;
+import com.elitecore.controller.schedulercontroller;
 import com.ibm.icu.util.Calendar;
 
 @Repository("schedulerdao")
@@ -57,9 +57,9 @@ private EntityManager em;
 			{	
 				if(j==1)
 				{
-				start_time=entry.getValue().toString();
-				j++;
-			}
+					start_time=entry.getValue().toString();
+					j++;
+				}
 				if(j==2)
 				{
 					jobname=entry.getValue().toString();
@@ -69,7 +69,7 @@ private EntityManager em;
 	    	job.setName(jobname);
 	    	System.out.println(start_time);
 	    	
-	    	job.setJobClass(reportcontroller.class);
+	    	job.setJobClass(schedulercontroller.class);
 	    	System.out.println(jobname);
 	    	//configure the scheduler time
 	    	
@@ -87,7 +87,7 @@ private EntityManager em;
 	    	
 	    	System.out.println(a+"--- "+h+" : "+m1);
 	    	
-	    	trigger.setStartTime(new java.util.Date(d.getYear(),d.getMonth(),d.getDate(),h,m1));
+	    	trigger.setStartTime(new java.util.Date(d.getYear(),d.getMonth(),d.getDate(),h		,m1));
 	    	trigger.setRepeatInterval(24*60*60*1000);
 	    	
 	    	//schedule it

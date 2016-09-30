@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.elitecore.dto.DBMasterDto;
 import com.elitecore.dto.Reportdto;
+import com.elitecore.dto.Schedulerdto;
 import com.elitecore.dto.querydto;
 import com.elitecore.dto.userdto;
 import com.elitecore.model.DBMaster;
@@ -12,6 +13,7 @@ import com.elitecore.model.Query;
 import com.elitecore.model.Report;
 import com.elitecore.model.User;
 import com.elitecore.model.queryin;
+import com.elitecore.model.scheduler;
 
 public class transfer {
 public static User trans(userdto u)
@@ -76,5 +78,15 @@ public static Report Report_trans(Reportdto rd)
 	r.setReport_name(rd.getReport_name());
 	return r;
 	
+}
+public static scheduler schedules(Schedulerdto sd) {
+	scheduler sch= new scheduler();
+	sch.setId(sd.getId());
+	sch.setJob_name(sd.getJob_name());
+	sch.setReport_id(sd.getReport_id());
+	sch.setStart_time(sd.getStart_time());
+	sch.setEmail_id(sd.getEmail_id());
+	sch.setFreq_hour(sd.getFreq_hour());
+	return sch;
 }
 }

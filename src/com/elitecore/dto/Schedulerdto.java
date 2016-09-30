@@ -11,8 +11,12 @@ public class Schedulerdto {
 	
 	private int report_id;
 	
-	private Date start_time;
-
+	private String start_time;
+	
+	private String email_id;
+	
+	private int freq_hour;
+	
 	public int getId() {
 		return id;
 	}
@@ -37,13 +41,28 @@ public class Schedulerdto {
 		this.report_id = report_id;
 	}
 
-	public Date getStart_time() {
+	public String getStart_time() {
 		return start_time;
 	}
 
-	public void setStart_time(Date start_time) {
+	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
-	
+
+	public String getEmail_id() {
+		return email_id;
+	}
+
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
+	}
+
+	public int getFreq_hour() {
+		return freq_hour;
+	}
+
+	public void setFreq_hour(int freq_hour) {
+		this.freq_hour = freq_hour;
+	}
 	
 }

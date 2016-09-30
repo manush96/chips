@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.elitecore.model.User;
+import com.elitecore.model.scheduler;
 import com.elitecore.dao.ReportDao;
 import com.elitecore.model.DBMaster;
 import com.elitecore.model.Query;
@@ -85,6 +86,12 @@ ReportDao dao;
 		Map<String,Object> a=dao.getScheduled_reportid(i, j);
 		System.out.println("Back from servies..."+a);
 		return a;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public void addschedule(scheduler sch) {
+		dao.addscheduler(sch);
+		
 	}
 
 }

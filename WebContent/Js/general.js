@@ -31,6 +31,22 @@ function side_url()
 		$('a[ref="'+url+'"].ajax_load').trigger('click');
 	}
 }
+
+var start_time = function()
+{
+	hrs = $("#start_hrs").val();
+	mins = $("#start_mins").val();
+	time = hrs+":"+mins;
+	$("#start_time").val(time);
+}
+
+var int_time = function()
+{
+	days = $("#int_days").val();
+	hrs = $("#int_hrs").val();
+	tot_hrs = 24*(parseInt(days)) + parseInt(hrs);
+	$("#freq_hour").val(tot_hrs);
+}
 $(document).ready(function()
 {	
 	$(document).on("click",".ajax_load",function(e)
@@ -468,4 +484,14 @@ $(document).ready(function()
 			}
 		});
 	});
+	
+	$(document).on("keyup","#start_hrs",function(){ start_time() });
+	$(document).on("change","#start_hrs",function(){ start_time() });
+	$(document).on("keyup","#start_mins",function(){ start_time() });
+	$(document).on("change","#start_mins",function(){ start_time() });
+	
+	$(document).on("keyup","#int_days",function(){ int_time() });
+	$(document).on("change","#int_days",function(){ int_time() });
+	$(document).on("keyup","#int_hrs",function(){ int_time() });
+	$(document).on("change","#int_hrs",function(){ int_time() });
 });

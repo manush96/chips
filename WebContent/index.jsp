@@ -20,5 +20,4 @@
 	session.setAttribute("user", user);
 	session.setAttribute("url", "viewquery.html?page=1");
 	response.sendRedirect("profile.html");
-	
 %>

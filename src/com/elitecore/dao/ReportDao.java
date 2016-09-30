@@ -25,6 +25,7 @@ import com.elitecore.model.DBMaster;
 import com.elitecore.model.Query;
 import com.elitecore.model.Report;
 import com.elitecore.model.User;
+import com.elitecore.model.scheduler;
 import com.elitecore.services.manipulator;
 
 @Repository("Reportdao")
@@ -245,5 +246,11 @@ public class ReportDao {
 			System.out.println("Result int"+k);
 			return k1;
 			
+		}
+
+
+		public void addscheduler(scheduler sch) {
+			
+			em1.persist(sch);
 		}
 }
