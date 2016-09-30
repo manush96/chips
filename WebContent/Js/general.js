@@ -36,7 +36,16 @@ var start_time = function()
 {
 	hrs = $("#start_hrs").val();
 	mins = $("#start_mins").val();
+	/*if(parseInt(hrs)<10)
+	{
+		hrs=hrs;
+	}
+	if(parseInt(mins)<10)
+	{
+		mins=0+mins;
+	}*/
 	time = hrs+":"+mins;
+	alert(time)
 	$("#start_time").val(time);
 }
 
@@ -494,4 +503,11 @@ $(document).ready(function()
 	$(document).on("change","#int_days",function(){ int_time() });
 	$(document).on("keyup","#int_hrs",function(){ int_time() });
 	$(document).on("change","#int_hrs",function(){ int_time() });
+	
+	$(document).on("click",".schedule_report",function()
+			{
+				id = $(this).attr('rel');
+				alert(id)	
+				$("#scheduler_modal").find("#report_id").val(id);
+			});	
 });

@@ -3,6 +3,7 @@ package com.elitecore.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -52,17 +53,6 @@ public class ReportDao {
 		@SuppressWarnings("null")
 		public void setDataSource() {
 //			 	
-//			 	Properties dbPropertises=null;
-//			 	dbPropertises.setProperty("driver","com.mysql.jdbc.Driver");
-//			 	dbPropertises.setProperty("jdbcUrl","jdbc:mysql://localhost:3306/de");
-//			 	dbPropertises.setProperty("user",user);
-//			 	dbPropertises.setProperty("password",password);
-//			 	dbPropertises.setProperty("acquireIncrement","5");
-//			 	dbPropertises.setProperty("idleConnectionTestPeriod","60");
-//			 	dbPropertises.setProperty("maxPoolSize","10");
-//			 	dbPropertises.setProperty("maxStatements","50");
-//			 	dbPropertises.setProperty("minPoolSize","2");
-//			 	dataSource.setDbProperties(dbPropertises);
 				BasicDataSource datasource=new BasicDataSource();
 				datasource.setDriverClassName(classname);
 				datasource.setUsername(user);
@@ -144,13 +134,49 @@ public class ReportDao {
 			System.out.println("Final Query "+sql);
 			String final_string=manipulator.convsql(sql, disp_name);
 			System.out.println("Final String "+ final_string);
+			
+			//Do code here if u want to check if type of columns are of which type
+			coreJdbc(final_string);
+			//---checking of column type end here...
 			return template1.queryForList(final_string);
+		}
+		
+		private void coreJdbc(String query) {
+			
+			String driverstring="com.mysql.jdbc.Driver";
+			String connectionstring="jdbc:mysql://localhost:3306/spring?user=root";
+			
+			try
+			{
+				Class.forName(driverstring);
+				
+				Connection con= DriverManager.getConnection(connectionstring);
+				
+				Statement st=con.createStatement();
+				
+				ResultSet rs= st.executeQuery(query);
+				
+				ResultSetMetaData mtdt=rs.getMetaData();
+				System.out.println(mtdt.getColumnCount());
+				System.out.println(mtdt.getColumnType(2));
+				System.out.println(mtdt.getColumnTypeName(2));
+				
+								
+				rs.close();
+				st.close();
+				con.close();			
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
 		}
 
 		private void coreJdbc(int db_id2) {
 			
 			String driverstring="com.mysql.jdbc.Driver";
-			String connectionstring="jdbc:mysql://localhost:3306/spring?user=root";
+			String connectionstring="jdbc:mysql://localhost:3306/spring";
 			
 			Scanner sc= new Scanner(System.in);
 			

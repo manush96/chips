@@ -95,8 +95,6 @@ public class schedulercontroller implements Job {
 		int i=d.getHours();
 		int j=d.getMinutes();
 		
-		
-		
 		try{
 			
 			int report_id = 0;

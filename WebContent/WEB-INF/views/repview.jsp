@@ -24,6 +24,7 @@
 					<div class="col-sm-6 lr0pad"></div>
 					<div class="col-sm-6 lr0pad">#</div>
 				</div>
+				<div class="col-sm-0 lr0pad"></div>
        			<div class="col-sm-2 lr0pad">
        				<h4>Report Name</h4>
        			</div>
@@ -57,6 +58,9 @@
 						<div class="col-sm-6 lr0pad">
 							<p>${((sessionScope.page_id - 1)*5) + j.index + 1}</p>
 						</div>
+					</div>
+					<div class="col-sm-0 lr0pad">
+						<span value="${report.id}" class="report_id"></span>
 					</div>
 	       			<div class="col-sm-2 lr0pad">
 	       				<span class="name_text">${report.report_name}</span>
@@ -125,7 +129,7 @@
 							<div id="edit_body" class="col-sm-12">
 								<form:form modelAttribute="scheduler" action="scheduletask.html" class="form-horizontal" role="form" method="POST">
 									<form:input path="id" type="hidden" id="id" name="id" />
-									<form:input path="report_id" type="hidden" id="report_id" name="report_id" />
+									<form:input path="report_id" type="hidden" id="report_id" name="report_id" value=""/>
 									<form:input path="start_time" type="hidden" id="start_time" name="start_time" />
 									<form:input path="freq_hour" type="hidden" id="freq_hour" name="freq_hour" />
 							        <div class="form-group">

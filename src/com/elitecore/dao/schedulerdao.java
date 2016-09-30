@@ -3,6 +3,7 @@ package com.elitecore.dao;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -74,7 +75,9 @@ private EntityManager em;
 	    	//configure the scheduler time
 	    	
 	    	SimpleTrigger trigger = new SimpleTrigger();
-	    	trigger.setName("dumb");
+	    	Random r=new Random();
+	    	int triggerRank=r.nextInt(1000);
+	    	trigger.setName("dumb"+triggerRank);
 	    	java.util.Calendar c=java.util.Calendar.getInstance();
 	    	java.util.Date d=new java.util.Date();
 	    	String a=start_time.replace(":", "");
