@@ -54,6 +54,8 @@ public class schedulercontroller implements Job {
 	@Autowired
 	Reportservices services;
 	
+	String base_path = "V:/JAVA/Workspace/Elitecore/";
+	
 	@RequestMapping(value="/scheduletask.html", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute Schedulerdto  schedulerdto,BindingResult result) throws Exception 
 	{
@@ -94,15 +96,25 @@ public class schedulercontroller implements Job {
 		java.util.Date d=new java.util.Date();	
 		int i=d.getHours();
 		int j=d.getMinutes();
-		
+		String i2 = String.valueOf(i);
+		String j2 = String.valueOf(j);
+				
+		if(i<10)
+		{
+			i2 = "0"+i2;
+		}
+		if(j<10)
+		{
+			j2 = "0"+j2;
+		}
 		try{
 			
 			int report_id = 0;
 			int db_id=0;
 			int query_id=0;
 			String display_name="";
-		
-			System.out.println("invoking function to dao-via-services "+i+" "+j);
+			String email_id = "";
+			System.out.println("invoking function to dao-via-services "+i2+" "+j2);
 			
 			String driverstring="com.mysql.jdbc.Driver";
 			String connectionstring="jdbc:mysql://localhost:3306/spring?user=root";
@@ -120,14 +132,14 @@ public class schedulercontroller implements Job {
 				Statement st=con.createStatement();
 				
 							
-				String query="select report_id from scheduler where start_time='"+i+":"+j+"'";
+				String query="select report_id,email_id from scheduler where start_time='"+i2+":"+j2+"'";
 				System.out.println(query);
 				ResultSet rs= st.executeQuery(query);
-								
+				
 				while(rs.next())
 				{
 					 report_id = rs.getInt("report_id");
-					
+					 email_id = rs.getString("email_id");
 				}
 				
 				System.out.println("reportID "+report_id);
@@ -203,7 +215,7 @@ public class schedulercontroller implements Job {
 			System.out.println("inside job");
 			// report execution completed....
 			
-			File input = new File("C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/page.html");
+			File input = new File(base_path+"WebContent/Report_PDF_Storage/page.html");
 			FileWriter w=new FileWriter(input.getAbsoluteFile());
 			BufferedWriter bw=new BufferedWriter(w);
 			bw.write(html);
@@ -212,7 +224,7 @@ public class schedulercontroller implements Job {
 			//creating unique name everytime for the pdf documentation name
 			String fileName = new SimpleDateFormat("dd_MM_yyyy_hh_mm'.pdf'").format(new java.util.Date());
 			System.out.println("filename  "+fileName);
-			itext.createPdf("C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/Report_"+fileName, "C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/page.html");
+			itext.createPdf(base_path+"WebContent/Report_PDF_Storage/Report_"+fileName, base_path+"WebContent/Report_PDF_Storage/page.html");
 
 			
 			//pdf generation
@@ -242,7 +254,7 @@ public class schedulercontroller implements Job {
 		        Message message = new MimeMessage(session);
 		        message.setFrom(new InternetAddress("aprojects66@gmail.com"));
 		        message.setRecipients(Message.RecipientType.TO,
-		                InternetAddress.parse("vatsal51295@gmail.com"));
+		                InternetAddress.parse(email_id));
 		        message.setSubject("Scheduler Report File");
 		        message.setText("PFA");
 		        
@@ -254,7 +266,7 @@ public class schedulercontroller implements Job {
 
 				String file = new SimpleDateFormat("dd_MM_yyyy_hh_mm'.pdf'").format(new java.util.Date());
 				
-				file="C:/Vatsal/EliteCoreGITProject/WebContent/Report_PDF_Storage/Report_"+fileName;
+				file=base_path+"WebContent/Report_PDF_Storage/Report_"+fileName;
 				
 				System.out.println("filename  "+file);
 			    DataSource source = new FileDataSource(file);

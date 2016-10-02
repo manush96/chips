@@ -36,16 +36,15 @@ var start_time = function()
 {
 	hrs = $("#start_hrs").val();
 	mins = $("#start_mins").val();
-	/*if(parseInt(hrs)<10)
+	if(parseInt(hrs)<10)
 	{
-		hrs=hrs;
+		hrs='0'+hrs;
 	}
 	if(parseInt(mins)<10)
 	{
-		mins=0+mins;
-	}*/
+		mins='0'+mins;
+	}
 	time = hrs+":"+mins;
-	alert(time)
 	$("#start_time").val(time);
 }
 
@@ -163,25 +162,25 @@ $(document).ready(function()
 	});
 	
 	$(document).on("click",".edit_report",function()
-			{
-				id = $(this).attr('rel');
-				// report name queryid dbid display names
-				name = $('div[data-id="'+id+'"]').find(".name_text").text();
-				queryid = $('div[data-id="'+id+'"]').find(".query_text").text();
-				displaynames = $('div[data-id="'+id+'"]').find(".description_text").text();
-				dbid = $('div[data-id="'+id+'"]').find(".db_id").text();
-				
-				alert(id);
-				alert(name);
-				alert(queryid);
-				alert(dbid);
-				alert(displaynames);
-				/*$("#edit_report").find("#name").val(name);
-				$("#edit_report").find("#query").val(query);
-				$("#edit_report").find("#pword").val(desc);
-				$("#edit_report").find("#id").val(id);
-				$("#edit_report").find("#status").val(status);*/
-			});
+	{
+		id = $(this).attr('rel');
+		// report name queryid dbid display names
+		name = $('div[data-id="'+id+'"]').find(".name_text").text();
+		queryid = $('div[data-id="'+id+'"]').find(".query_text").text();
+		displaynames = $('div[data-id="'+id+'"]').find(".description_text").text();
+		dbid = $('div[data-id="'+id+'"]').find(".db_id").text();
+		
+		alert(id);
+		alert(name);
+		alert(queryid);
+		alert(dbid);
+		alert(displaynames);
+		/*$("#edit_report").find("#name").val(name);
+		$("#edit_report").find("#query").val(query);
+		$("#edit_report").find("#pword").val(desc);
+		$("#edit_report").find("#id").val(id);
+		$("#edit_report").find("#status").val(status);*/
+	});
 	$(document).on("click","#edit_query_submit",function(e)
 	{
 		$("#param_clone").remove();
@@ -505,9 +504,8 @@ $(document).ready(function()
 	$(document).on("change","#int_hrs",function(){ int_time() });
 	
 	$(document).on("click",".schedule_report",function()
-			{
-				id = $(this).attr('rel');
-				alert(id)	
-				$("#scheduler_modal").find("#report_id").val(id);
-			});	
+	{
+		id = $(this).attr('rel');
+		$("#scheduler_modal").find("#report_id").val(id);
+	});	
 });

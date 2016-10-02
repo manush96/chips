@@ -68,6 +68,21 @@
 			}
 			s1=s1.substring(0, s1.length()-1);
 			s2=s2.substring(0, s2.length()-1);
+			
+			String str=request.getRequestURL()+"?";
+			Enumeration<String> paramNames = request.getParameterNames();
+			while (paramNames.hasMoreElements())
+			{
+			    String paramName = paramNames.nextElement();
+			    String[] paramValues = request.getParameterValues(paramName);
+			    for (int i = 0; i < paramValues.length; i++) 
+			    {
+			        String paramValue = paramValues[i];
+			        str=str + paramName + "=" + paramValue;
+			    }
+			    str=str+"&";
+			}
+			String s=str.substring(0,str.length()-1); 
 			%>
 		</tbody>
 		</table>
@@ -95,20 +110,6 @@
 		</div>
 		<div class="col-sm-4">
 			<div class="">
-				<% String str=request.getRequestURL()+"?";
-				Enumeration<String> paramNames = request.getParameterNames();
-				while (paramNames.hasMoreElements())
-				{
-				    String paramName = paramNames.nextElement();
-				    String[] paramValues = request.getParameterValues(paramName);
-				    for (int i = 0; i < paramValues.length; i++) 
-				    {
-				        String paramValue = paramValues[i];
-				        str=str + paramName + "=" + paramValue;
-				    }
-				    str=str+"&";
-				}
-				String s=str.substring(0,str.length()-1);  %>
 				<div class="col-sm-4">
 					<form method="post" action="convertor.html">
 						<input type="hidden" name="html_val_pdf" id="html_val_pdf"/>
