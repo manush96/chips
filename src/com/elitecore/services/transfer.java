@@ -3,11 +3,13 @@ package com.elitecore.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.elitecore.dto.Clientdto;
 import com.elitecore.dto.DBMasterDto;
 import com.elitecore.dto.Reportdto;
 import com.elitecore.dto.Schedulerdto;
 import com.elitecore.dto.querydto;
 import com.elitecore.dto.userdto;
+import com.elitecore.model.Client;
 import com.elitecore.model.DBMaster;
 import com.elitecore.model.Query;
 import com.elitecore.model.Report;
@@ -89,4 +91,14 @@ public static scheduler schedules(Schedulerdto sd) {
 	sch.setFreq_hour(sd.getFreq_hour());
 	return sch;
 }
+
+public static Client client_trans(Clientdto cd)
+{
+	Client c=new Client();
+	c.setUsername(cd.getUsername());
+	c.setContact(cd.getContact());
+	return c;
+	
+}
+
 }

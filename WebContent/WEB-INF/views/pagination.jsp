@@ -5,6 +5,8 @@
  <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  <%@page import="com.elitecore.model.User" %>  
+ 
+
  	<div class="col-sm-12 lr0pad">
 	     <div class="col-sm-5 lr0pad">
 	         <div class="form-group">
@@ -18,8 +20,8 @@
 	     </div>
 	</div>
 	<div id="query_records_div">		
-       	<div class="col-sm-12 lr0pad" id="query_manager_div">
-       		<div class="col-sm-12 lr0pad" id="query_manager_header">
+       	<div class="col-sm-12 lr0pad table table-striped table-bordered datatable" id="">
+       		<div class="col-sm-12 lr0pad " id="">
        			<div class="col-sm-1 lr0pad">
        				
        			</div>
@@ -69,6 +71,8 @@
 	        					<span class="glyphicon glyphicon-pencil"></span>
 	        					<span class="params" style="display: none"><c:out value="${params[query.id]}"/></span>
 	        				</button>
+	        			</div>
+	        			<div class="col-sm-6 ">
 	        				<button class="btn btn-danger remove_query_row" title="Delete" rel="${query.id}">
 	        					<span class="glyphicon glyphicon-trash"></span>
 	        				</button>
@@ -250,3 +254,85 @@
 			</div>
 			<span style="display: none" id="page_id"><%= id %></span>
 	   </div>
+	   
+	   <!-- Datatables -->
+    <script>
+      $(document).ready(function() {
+        var handleDataTableButtons = function() {
+          if ($("#datatable-buttons").length) {
+            $("#datatable-buttons").DataTable({
+              dom: "Bfrtip",
+              buttons: [
+                {
+                  extend: "copy",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "csv",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "excel",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "pdfHtml5",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "print",
+                  className: "btn-sm"
+                },
+              ],
+              responsive: true
+            });
+          }
+        };
+
+        TableManageButtons = function() {
+          "use strict";
+          return {
+            init: function() {
+              handleDataTableButtons();
+            }
+          };
+        }();
+
+        $('#datatable').dataTable();
+
+        $('#datatable-keytable').DataTable({
+          keys: true
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        $('#datatable-scroller').DataTable({
+          ajax: "js/datatables/json/scroller-demo.json",
+          deferRender: true,
+          scrollY: 380,
+          scrollCollapse: true,
+          scroller: true
+        });
+
+        $('#datatable-fixed-header').DataTable({
+          fixedHeader: true
+        });
+
+        var $datatable = $('#datatable-checkbox');
+
+        $datatable.dataTable({
+          'order': [[ 1, 'asc' ]],
+          'columnDefs': [
+            { orderable: false, targets: [0] }
+          ]
+        });
+        $datatable.on('draw.dt', function() {
+          $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green'
+          });
+        });
+
+        TableManageButtons.init();
+      });
+    </script>
+    <!-- /Datatables -->

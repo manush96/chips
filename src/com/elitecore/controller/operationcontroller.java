@@ -156,7 +156,7 @@ schedulerdao sch;
 		}
 		else
 		{
-			return new ModelAndView("Dashboard","key",user.getUserName());
+			return new ModelAndView("gentella","key",user.getUserName());
 		}
 		
 	}
@@ -166,5 +166,11 @@ schedulerdao sch;
 	{
 		session.invalidate();
 		return "redirect:hello.html";
+	}
+	
+	@RequestMapping(value="/dummy.html")
+	public ModelAndView dummy()
+	{
+		return new ModelAndView("client_index");
 	}
 }

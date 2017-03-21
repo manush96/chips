@@ -54,7 +54,7 @@ public class schedulercontroller implements Job {
 	@Autowired
 	Reportservices services;
 	
-	String base_path = "V:/JAVA/Workspace/Elitecore/";
+	String base_path = "C:/Vatsal/EliteCoreGITProject/";
 	
 	@RequestMapping(value="/scheduletask.html", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute Schedulerdto  schedulerdto,BindingResult result) throws Exception 

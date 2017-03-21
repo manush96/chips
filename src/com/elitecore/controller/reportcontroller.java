@@ -90,7 +90,9 @@ public class reportcontroller {
 	@Autowired
 	DBservices services2;
 	
-	String base_path = "V:/JAVA/Workspace/Elitecore/";
+	String base_path = "C:/Vatsal/EliteCoreGITPRoject/";
+	
+	//C:\Vatsal\EliteCoreGITProject\WebContent
 	
 	@RequestMapping(value = "reportconfig.html")
 	public ModelAndView reportconfig() {
